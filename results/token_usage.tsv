@@ -1,14 +1,14 @@
 api	model	problem	input	cache_read	output	usd	calls
 Anthropic API (delegate)	claude-haiku-5-5	Complex code	98	0	4	0.0	1
-Anthropic API (delegate)	claude-opus-5-5	Method/stats review	4532	0	7682	0.1718	2
+Anthropic API (delegate)	claude-opus-5-5	Method/stats review	21135	0	17530	0.43520000000000003	3
 Anthropic API (delegate)	claude-sonnet-5-5	Code review	2814	0	16000	0.1656	1
 Anthropic API (delegate)	claude-sonnet-5-5	Complex code	5628	0	33546	0.3467	2
 Anthropic API (delegate)	claude-sonnet-5-5	Unclassified delegate	3118	0	32045	0.32669	1
-Claude Code session	claude-sonnet-5-5	Delegation orchestration	21951	1184909	14474	0.0	12
-Claude Code session	claude-sonnet-5-5	Git/reporting	67233	1434103	20635	0.0	16
-Claude Code session	claude-sonnet-5-5	Literature search	10419	672631	16093	0.0	7
-Claude Code session	claude-sonnet-5-5	Planning & reasoning	110058	5903506	30664	0.0	60
-Claude Code session	claude-sonnet-5-5	Running analysis	21221	2384646	22840	0.0	21
+Claude Code session	claude-sonnet-5-5	Delegation orchestration	23557	1329130	15117	0.0	13
+Claude Code session	claude-sonnet-5-5	Git/reporting	85018	2103296	24729	0.0	22
+Claude Code session	claude-sonnet-5-5	Literature search	19936	1212098	20459	0.0	12
+Claude Code session	claude-sonnet-5-5	Planning & reasoning	168207	6989975	35048	0.0	68
+Claude Code session	claude-sonnet-5-5	Running analysis	31503	2851441	29542	0.0	25
 Claude Code session	claude-sonnet-5-5	Testing	17898	1224148	10886	0.0	11
 DeepSeek	deepseek-flash	Routine code	2502	0	35392	0.0	2
 DeepSeek	deepseek-v4-pro	Paper reading	32532	0	15114	0.0	2

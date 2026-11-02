@@ -1,143 +1,140 @@
-# Viral RNA regulatory-motif discovery (rna_motif_v2)
+# Finding regulatory-RNA motif candidates in viral genomes (rna_motif_v2)
 
-**Final (2026-11-02): 148 candidate k-mers are significant in all three sampling/clustering variants (114 last-300 nt, 29 first-300 nt, 5 whole genome); 101 of the 143 terminal ones are absent from a human-mRNA control, 32 are generic 3'-end signal. The strongest is a conserved 3'-UTR element identical to the published s2m (Rfam RF00164) with covariation support. Everything else is a statistical candidate, not a validated element; q-values are not literal error rates.**
+**Task in one sentence:** build a small, honest tool that finds short sequence patterns over-represented in viral RNA, ranks them with statistics against a sensible background, avoids being fooled by closely related viruses sampled many times, and says how far each candidate can be trusted (full brief: [`TASK.md`](TASK.md)).
 
-## Abstract
-Question: which short RNA sequence patterns (k=6-8) are over-represented in viral RNA beyond what each genome's own order-2 composition predicts, counting independent sequence clusters rather than records? Approach: NCBI RefSeq pull + QC, similarity clustering, per-sequence Markov-2 background with exact Poisson-binomial tails, BH-FDR within region (whole genome / first 300 nt / last 300 nt). Result: calibration gates pass (1/20 null datasets with any BH hit; planted 8-mer recovered at rank 1, q~1e-134); naive record counting inflates hits 9.6x on a redundant set. On real data 76 whole-genome and ~740-880 terminal-region k-mers are significant, log2 enrichment >=1 and robust to an order-1 background. Of these, 148 are significant in all three variants (main, coarse clustering, spread sampling; `results/robust_candidates.tsv`), led by the s2m core (q~1e-31). These are candidates, not functional elements; coding constraint and genus-level homology are not removed (see limitations).
+## 1. What was built
+A pipeline (`src/`, runs in minutes on a laptop) that (i) downloads 620 NCBI RefSeq/GenBank viral genomes from 12 virus families and cleans them, (ii) merges near-identical genomes so each *independent* virus is counted once (432 independent genomes remain), (iii) asks which 6–8-letter words occur in more genomes than each genome's own base composition predicts, separately for the first 300 nt, the last 300 nt and the whole genome, (iv) merges overlapping words into **27 motif groups**, and (v) grades each group on a 5-step reliability ladder using a human-mRNA control, a scan against the Rfam database of known RNA elements, and 253 genomes the discovery never saw.
 
-## Workflow (live; ticked = done)
-- [x] 0. Papers read and digested ([@bernett2024leakage], [@razumova2025utr], [@jin2025mrna]); rules approved: `reference/golden_standard/SUMMARY.md`
-- [x] 1. Spec: `changes/motif-discovery/` (hypothesis, methods v2, tasks). Opus stats review (`handoff/T5.raw.md`) invalidated v1 (shuffle null cannot reach BH thresholds) -> v2
-- [x] 2. Task 1 data/QC: `src/fetch_qc.py`, provenance in `data/PROVENANCE.md` (NCBI nuccore Build261031-0025m.1, fetched 2026-11-02)
-- [x] 3. Redundancy control: `src/cluster.py` (12-mer Jaccard >= 0.10, orientation to mRNA sense for negative-sense families, low-complexity masking)
-- [x] 4. Task 2 motif engine: `src/motif.py` (12 tests pass), run in 6 s on 10 cores
-- [x] 5. Gates G1-G3 (`src/gates.py`, `results/gates.json`)
-- [x] 6. Real-data analysis (`src/analyze.py`)
-- [x] 7. `stat-check` audit + family-level replication (`src/robustness.py`)
-- [x] 8. Follow-up of the recurring 3'-end motif: extended element, consistent with s2m (literature check below)
-- [x] 9. s2m verified against Rfam RF00164; local-background, coarse-clustering and spread-sampling sensitivity; robust list; RNAfold check (`src/structure.py`)
-- [x] 10. Covariation of the s2m seed alignment (`src/covariation.py`); human-mRNA negative set (`src/host_control.py`)
-- [x] 11. Token-use report ([Resource use](#resource-use)); final report
+## 2. Main findings (numbers in section 4)
+1. **One candidate is a known, published element: s2m** (stem-loop II-like motif, a conserved ~40-nt hairpin in the 3′ end of astro-, calici- and coronaviruses). Found without being told: the group is carried by 28 genomes (best q = 5e-31); 25 of them are confirmed s2m by Rfam model RF00164 (astro-, corona- and caliciviruses; the other 3 carriers, in other families incl. one retrovirus, share only part of the word and are unconfirmed). Absent from human mRNAs (Fisher q=0.043, borderline with only 83 host sequences); base pairs covary in the Rfam alignment (partly circular); recurs in 18 of 253 unseen genomes (7.1% vs 0.4% by shuffled-word chance), though these come from the same families. Level **L4**; real independence is 2–3 lineages (astro, corona, calici).
+2. **Most of the other signals are composition, not motifs.** The strongest 3′ group is an A/U-rich stretch present in 71% of genomes *and* 65% of human mRNA 3′ ends: generic mRNA-end sequence, not viral-specific.
+3. **Two more groups pass every statistical test we can run here (L3):** a 5′ U-rich group `AGTTTTTTCTA` (11 families; 32% of unseen genomes vs 9% by chance) and a 3′ `CCAATTGGCA` group (7 families). The 5′ U-rich one almost certainly reflects the known gene-start/transcription signals of negative-strand RNA viruses (Marburg/Mononegavirales signals: [@feldmann1992marburg]); I have **not** confirmed this for our families, so it is a probable re-discovery, not a new element. The Bunyavirales termini are conserved by design (the genome's two ends base-pair), so they are positive controls.
+4. Of 27 groups: 1 at L4, 2 at L3, 3 at L2, 21 at L1. **Nothing reaches L5 (experimental).**
 
-## Data
-469 RefSeq records after QC (12 families, 1000-35,000 nt) + 96 GenBank strains (SARS-CoV-2, Dengue 2, HCV; redundancy demo only). 55 of 620 fetched records dropped (all: >1% non-ACGT). Clustering: RefSeq collapses little (about 1 cluster per record, largest 5), demo collapses strongly (21 -> 1, 75 -> 15 clusters). Only cluster representatives are counted [@bernett2024leakage Q4].
+**What this means biologically:** the method can rediscover a real regulatory RNA element from sequence alone and flag a few more worth a look. It does **not** show that any other candidate is functional.
+**What it does NOT mean:** over-representation ≠ function. Candidates can reflect shared ancestry, protein-coding constraint, or generic mRNA-end composition.
+**Main caveat:** the background model fits real genomes imperfectly (about 20% of all tests have p<0.1), so q-values overstate evidence. Trust the *ladder*, not the q-value.
 
-## Methods (choice -> standard)
-Order-2 Markov background fitted per sequence; exact Poisson-binomial upper tail on presence across representatives; k=6,7,8; BH within region; effect = log2((obs+0.5)/(expected+0.5)) in units of sequences. Details and rejected alternatives: `changes/motif-discovery/methods.md`. Deviations from the spec during the build: clustering uses 12-mers (8-mers saturate: unrelated 20-30 kb genomes reached Jaccard 0.26 by chance); `expected_sum` reports expected number of sequences with the k-mer (a bug had summed expected counts); G3 passes on q<0.05 and rank<=3.
-
-## Results (preliminary)
-**Calibration gates (`results/gates.json`)**
-
-| Gate | Result | Pass |
+## 3. Task question → answer → section
+| Task question | Answer in one line | Where |
 |---|---|---|
-| G1 null calibration: 20 order-2 chain-sampled datasets | BH hits in 1/20 runs (allowed <=1) | yes |
-| G2 redundancy bias, demo set (96 records -> 16 reps) | 21,566 hits naive vs 2,235 with representatives (9.6x) | yes (demonstrated) |
-| G3 planted GACGTCAG in 20% of reps' first 300 nt | rank 1, q~6e-134, obs 86/432 | yes |
+| Q1.1 parse sequences + metadata | NCBI records parsed to accession, organism, taxid, family, length, GC, date | §5 |
+| Q1.2 type, source, annotation | RNA virus genomes from RefSeq (+96 GenBank strains as a redundancy demo); 12 families, listed with genome type | §5 |
+| Q1.3 duplicates, odd bases, length, missing | 0 exact duplicates; 55 of 620 dropped (>1% non-ACGT); length 1–35 kb; 0 missing metadata fields | §5 |
+| Q1.4 source, taxonomy, version | NCBI nuccore Build261031-0025m.1, fetched 2026-11-02; 379 taxids; Rfam 15.1 | §5, `data/PROVENANCE.md` |
+| Q1.5 avoid homology bias | cluster to 432 independent genomes (12-mer similarity ≥0.10); naive counting inflates hits 9.6×; coarse clustering and a resampled set re-run | §6 |
+| Q2.1 candidate patterns | 6–8-mers merged into 27 motif groups | §4 |
+| Q2.2 frequency, coverage | genomes, % of independent genomes, families per group | §4 |
+| Q2.3 background | per-genome order-2 Markov model + 83 human mRNAs + shuffled-consensus chance level in held-out genomes | §6 |
+| Q2.4 ranking + evidence | ranked by q; evidence level L1–L5 (host test, held-out recurrence, Rfam) | §4 |
+| Q2.5 candidate vs validated | validated = experimental/curated; ours are statistical; only s2m matches a curated element | §7 |
+| Overall: how reliable? | reliability ladder; only s2m reaches L4, none L5 | §4 |
 
-G1 caveat: the null is generated by the same model family as the test (order-2 chains), so it checks implementation and tail accuracy, not fit to real genomes.
+## 4. Motif groups and how far to trust them
+**Reliability ladder** (a group gets the highest level it reaches): L0 over-represented · **L1** survives coarse clustering and resampling · **L2** significantly more common in viruses than in human mRNA (Fisher exact test, q<0.05, ≥2 families) · **L3** L2 *and* recurs in held-out genomes · **L4** matches a curated element (Rfam) · **L5** experimental.
 
-**Real data (`results/summary_by_region.tsv`, n=469 representatives, 12 families)**
+Columns: `k-mers` = overlapping words merged into the group; `genomes` = independent genomes carrying it (% of 432) / families; `host` = fraction of 83 human-mRNA representatives (95% CI; with 83 sequences, 'absent' means below ≈4% coverage); `held-out` = fraction of 253 unseen genomes vs the same statistic for shuffled consensus; `recurs` = held-out q<0.05.
 
-| region | tests | q<0.05 | + log2enr>=1 | + robust to order-1 | + >=2 families nominal |
-|---|---|---|---|---|---|
-| whole | 86,011 | 3,057 | 90 | 76 | 84 |
-| first 300 nt | 36,854 | 947 | 819 | 742 | 445 |
-| last 300 nt | 35,908 | 1,195 | 1,031 | 878 | 735 |
+| level | end | consensus | k-mers | genomes / families | best q | host (95% CI) | held-out vs chance | recurs |
+|---|---|---|---|---|---|---|---|---|
+| L4 | 3′ | `GGATCGAGGGTACA` | 7 | 28 (6%) / 6 | 5e-31 | 0.0 (0.00-0.04) | 7% vs 0% | yes |
+| L1 | 3′ | `ACACGCGTTCGGGTGC` | 10 | 23 (5%) / 3 | 9e-24 | 0.0 (0.00-0.04) | 0% vs 0% | no |
+| L3 | 5′ | `AGTTTTTTCTA` | 11 | 99 (23%) / 11 | 1e-23 | 0.05 (0.02-0.12) | 32% vs 9% | yes |
+| L1 | 3′ | `AGTTTTAAAATTTTAATCAT` | 81 | 306 (71%) / 12 | 6e-23 | 0.65 (0.54-0.74) | 9% vs 1% | yes |
+| L3 | 3′ | `CCAATTGGCA` | 5 | 42 (10%) / 7 | 8e-15 | 0.0 (0.00-0.04) | 8% vs 2% | yes |
+| L2 | 5′ | `TAGTAGT` | 2 | 31 (7%) / 7 | 2e-13 | 0.0 (0.00-0.04) | 17% vs 15% | no |
+| L1 | 5′ | `GCTAGAGC` | 2 | 15 (4%) / 6 | 2e-10 | 0.0 (0.00-0.04) | 2% vs 2% | no |
+| L2 | 3′ | `GAGTAGG` | 1 | 25 (6%) / 5 | 9e-10 | 0.0 (0.00-0.04) | 14% vs 11% | no |
+| L2 | 3′ | `TTGTAGTAGT` | 5 | 37 (9%) / 10 | 1e-08 | 0.01 (0.00-0.07) | 3% vs 5% | no |
+| L1 | 5′ | `GACATAGG` | 1 | 14 (3%) / 4 | 1e-07 | 0.0 (0.00-0.04) | 2% vs 3% | no |
+| L1 | 3′ | `TGTGATTGC` | 2 | 10 (2%) / 1 | 3e-06 | 0.0 (0.00-0.04) | 13% vs 7% | yes |
+| L1 | 5′ | `AGCAATCA` | 1 | 15 (4%) / 4 | 5e-05 | 0.0 (0.00-0.04) | 6% vs 4% | no |
+| L1 | 5′ | `ACCACCCA` | 1 | 15 (4%) / 7 | 2e-04 | 0.0 (0.00-0.04) | 7% vs 5% | no |
+| L1 | 5′ | `TAAATCTA` | 1 | 13 (3%) / 7 | 3e-04 | 0.0 (0.00-0.04) | 11% vs 8% | no |
+| L1 | 5′ | `CGCGAGGG` | 1 | 6 (1%) / 3 | 1e-03 | 0.01 (0.00-0.07) | 2% vs 1% | no |
+| L1 | 5′ | `AGAAATC` | 1 | 27 (6%) / 11 | 2e-03 | 0.02 (0.01-0.08) | 19% vs 15% | no |
+| L1 | 5′ | `TTTCCCCG` | 1 | 8 (2%) / 4 | 3e-03 | 0.01 (0.00-0.07) | 7% vs 4% | yes |
+| L1 | 5′ | `AAACAAAA` | 1 | 17 (4%) / 7 | 3e-03 | 0.0 (0.00-0.04) | 20% vs 19% | no |
+| L1 | 3′ | `TTGATTA` | 1 | 30 (7%) / 9 | 4e-03 | 0.01 (0.00-0.07) | 36% vs 24% | yes |
+| L1 | 5′ | `ACGTTAAA` | 1 | 7 (2%) / 2 | 5e-03 | 0.0 (0.00-0.04) | 0% vs 6% | no |
+| L1 | 5′ | `TTTTATTA` | 1 | 14 (3%) / 7 | 8e-03 | 0.0 (0.00-0.04) | 19% vs 16% | no |
+| L1 | 5′ | `TAAAATTA` | 1 | 12 (3%) / 7 | 8e-03 | 0.0 (0.00-0.04) | 14% vs 13% | no |
+| L1 | 5′ | `CTTCGGG` | 1 | 12 (3%) / 8 | 1e-02 | 0.01 (0.00-0.07) | 11% vs 7% | yes |
+| L1 | 3′ | `TTTCCCT` | 1 | 25 (6%) / 8 | 2e-02 | 0.12 (0.07-0.21) | 15% vs 22% | no |
+| L1 | 5′ | `ACGTGCCC` | 1 | 6 (1%) / 6 | 2e-02 | 0.0 (0.00-0.04) | 2% vs 2% | no |
+| L1 | 5′ | `CCGAAGGG` | 1 | 6 (1%) / 5 | 2e-02 | 0.01 (0.00-0.07) | 1% vs 2% | no |
+| L1 | 3′ | `GATGATTT` | 1 | 12 (3%) / 6 | 3e-02 | 0.0 (0.00-0.04) | 12% vs 7% | yes |
+
+*Take-home (levels are separate tests, not strictly cumulative; see `results/motif_groups_final.tsv`):* only 3 of 27 groups look viral-specific *and* replicate; six further groups recur in unseen genomes but are also found in host mRNA or are not significant against it, so they stay below L3. Group `ACACGCGTTCGGGTGC` (q=9e-24, 3 families) does **not** recur in unseen genomes (1/253): probably one lineage's sequence, treated as unreliable. The held-out chance level is a crude shuffled-sequence control, not a full null, and Bunyavirales termini inflate recurrence of 5′ groups.
+
+**Positive-control panel (Rfam, `results/rfam_panel.tsv`).** Scanning all 864 terminal windows with Infernal (covariance-model search for known RNA families) finds known viral elements in 143 windows (coronavirus pseudoknot and UTR models, togavirus 5′ CRE, flavivirus 3′ elements, s2m). Of 27 groups only s2m coincides with an Rfam element (25 of its 28 carriers have an RF00164 hit). **Recall of known elements by the k-mer groups is therefore low: 1 of the 22 Rfam families detected (9 of them in ≥10 windows).** The coronavirus pseudoknot/UTR, togavirus 5′ CRE and flavivirus elements are conserved in structure more than in exact words, or are restricted to one family and so fall below the multi-family filter. This is the honest sensitivity of the method. Known terminal signals (Bunyavirales/influenza termini, mononegavirus gene start/end) were not tabulated separately: open item.
 
 ![volcano](figures/volcano.png)
+*Take-home: thousands of terminal k-mers are nominally significant, but a handful stand far out; most of the cloud is background misfit.*
 
-Top candidates after collapsing nested k-mers: `results/top_candidates.tsv`. Examples: 3' end CGAGGGTA / TCGAGGGT / AGGGTACA (overlapping, one ~13-mer ATCGAGGGTACAG, 25-31 reps = 6-7%, 3-4 families, q<1e-19); 5' end poly-U-rich TTTTCTTA (43 reps, 10%, q 1e-23); whole genome GCAGCTGC (110 reps, 25%, 7 families, log2 enr 1.03).
+## 5. Data and QC (Task 1)
+| family/order | genome type | independent genomes | records |
+|---|---|---|---|
+| Astroviridae | +ssRNA | 35 | 40 |
+| Bunyavirales | −/ambisense ssRNA, segmented | 40 | 40 |
+| Caliciviridae | +ssRNA | 38 | 40 |
+| Coronaviridae | +ssRNA | 36 | 40 |
+| Flaviviridae | +ssRNA | 38 | 40 |
+| Nodaviridae | +ssRNA, 2 segments | 23 | 30 |
+| Orthomyxoviridae | −ssRNA, segmented | 38 | 40 |
+| Paramyxoviridae | −ssRNA | 39 | 39 |
+| Picornaviridae | +ssRNA | 40 | 40 |
+| Retroviridae | +ssRNA (reverse-transcribing) | 32 | 40 |
+| Rhabdoviridae | −ssRNA | 40 | 40 |
+| Togaviridae | +ssRNA | 33 | 40 |
 
-**Known elements, descriptive (`results/known_elements.tsv`, first 300 nt vs 20 chain-sampled nulls)**: PRTE-like pyrimidine pattern modestly higher (37% vs 30%, z=2.8); TOP, canonical rG4, Kozak not enriched; ATG slightly depleted (z=-2.5). Not recovering host-mRNA elements in viral genomes is uninformative [@razumova2025utr].
+469 RefSeq records kept (432 independent genomes) + 96 GenBank SARS-CoV-2/dengue/HCV strains used only to *demonstrate* redundancy bias. Parsed fields: accession, organism, taxid, family, length, GC, create date, molecule type. Annotation: GenBank feature tables were fetched but are **not yet used** (a UTR-vs-CDS analysis is listed as next step). Negative-sense genomes are reverse-complemented to message sense; low-complexity runs are masked. Provenance: `data/PROVENANCE.md`.
 
-**Family-level replication (`results/family_replication.tsv`)**: discovery rerun separately inside each family (n=26-40 each; BH within family and region; log2 enrichment >=1); count of families in which a k-mer is significant.
+## 6. Method in plain language, and checks
+- **Background:** for each genome, a Markov model of order 2 (what base follows the previous two) predicts how often each word should occur by composition alone.
+- **Test:** for each word, an exact Poisson-binomial tail (the probability that at least this many genomes contain it, given each genome's own chance) over *independent* genomes only; Benjamini–Hochberg FDR (controls the expected fraction of false hits) within region.
+- **Redundancy (Q1.5):** genomes ≥0.10 12-mer Jaccard (shared 12-letter words) are one cluster → one representative. Two further guards: *coarse* clustering (0.005, ~genus level) removes 75–85% of terminal hits, so the long tail is sample-dependent; a *resampled* set reproduces ~55–65%.
+- **Gates:** G1 null calibration (1 of 20 simulated null datasets gave any hit); G2 naive counting inflates hits 9.6×; G3 a planted 8-mer is recovered at rank 1.
+- **Fisher test vs human mRNA:** 83 representative human mRNAs; "viral-specific" now means significantly higher viral coverage, not "below 5%".
+- **Held-out test:** 276 new genomes, 20 dropped as near-copies of main genomes, clustered to 253; a group recurs if more unseen genomes carry it than shuffled versions of it.
+- **Structure/covariation:** single-sequence folding does not show s2m as unusually stable (a weak test); on the Rfam seed alignment, paired columns covary (MI 0.56 vs 0.04 bits, p=3e-3; partly circular since Rfam's structure came from this alignment). R-scape on our own alignment was not run.
 
-| data | region | sig in >=1 family | >=2 | >=3 | >=4 |
-|---|---|---|---|---|---|
-| real | whole | 2,966 | 142 | 20 | 3 |
-| real | first 300 | 6,907 | 538 | 59 | 6 |
-| real | last 300 | 8,182 | 1,124 | 238 | 72 |
-| chain null | whole / first / last | 0 / 38 / 79 | 0 | 0 | 0 |
+## 7. Candidate vs validated element (Q2.5)
+A validated element has experimental support (mutagenesis, reporters, structure probing) or a curated family model with covariation. Our candidates are only statistically over-represented patterns. One (s2m) coincides with a curated, experimentally studied element ([@keep2023s2m; @lulla2021sl2]); the rest are leads, to be tested by reporter or mutagenesis assays, by structure probing, and by comparison to annotated gene-start/end signals.
 
-Cross-family recurrence is not produced by the background model alone. Most recurrent last-300 k-mers are AT-rich (TTTTAAA in 7 families; ATTTTAA, TTATTTT in 6), which could be real AU-rich 3'-UTR signal or the composition difference of terminal vs interior sequence (GC: whole 0.446, last 300 nt 0.432, so the global shift is small). **Local-background re-test** (`src/local_bg.py`, order-1 background fitted on the 300-nt windows themselves): in the last 300 nt the AU-rich k-mers stay significant but weak (TTATTTT q=7e-4, ATTTTAA q=6e-3, TTTTAAA q=9e-3; log2 enrichment ~0.8, i.e. <2x), versus s2m k-mers at q~1e-23 and log2 ~4. At the 5' end they vanish (q>0.75, log2~0). So the AU-rich 3' signal is a modest, 3'-specific effect, not a strong motif; treat as low-priority candidate.
+## 8. Limitations
+- **Segments counted as units (PI review 2, open):** each segment of influenza/Bunyavirales/Nodaviridae is a separate record and 12-mer clustering cannot merge them, so for these families 'independent genomes' means segments; the `species` count in `results/motif_groups.tsv` is safer (e.g. `TGTGATTGC`: 10 genomes but 2 species, one family; `TAGTAGT`: 31 genomes, 17 species). Q1.5 is only fully answered for the non-segmented families. Collapsing to virus level and re-running is the first next step.
+- **Held-out test is not homology-separated:** unseen genomes are from the same 12 families (near-copies, 12-mer Jaccard ≥0.10, removed) and the chance level is shuffled consensus, which is weak for low-complexity words (the Bunyavirales-like `TAGTAGT` fails it). 'Recurs' means 'recurs in more genomes of the same lineages', not independent replication. Leave-one-family-out with dinucleotide-shuffled windows is a next step.
+- **Strand/context of the 5′ U-rich group is unverified:** negative-strand genomes were reverse-complemented to message sense, where mononegavirus gene-end U-tracts would read A-rich; the U-rich hit may be a different context, or some records may not be flipped. Retroviridae records are provirus-like, so their two ends share LTR sequence and are not independent. Hit positions and GenBank feature overlay not yet done (also needed for Q2.2 positional coverage).
+- **G1 calibration is circular** (null simulated from the model under test); the real calibration evidence is the ~20% of tests with p<0.1. Coding constraint (UTR vs CDS, codon-preserving null) not modelled; GenBank annotations fetched but unused.
+- 55 of 620 records (9%) dropped for >1% non-ACGT; family breakdown not examined. Wall-clock: pipeline under 5 min on 10 cores (Rfam scan 2.7 min).
+- `CCAATTGGCA` (Togaviridae/Picornaviridae) not yet checked against known alphavirus 3′ conserved-sequence annotations.
+- Paper principles applied: representatives-only counting follows [@bernett2024leakage]; k-mer features [@jin2025mrna]; host 5′UTR elements not expected in viruses [@razumova2025utr].
+- Background misfits real genomes (coding sequence, structure): q-values are not literal error rates.
+- First/last 300 nt mix UTR and coding sequence; UTR-vs-CDS test with codon-preserving null not done.
+- Host control is 83 representatives: absence means "not detected at ≥3% coverage". Held-out chance level is crude.
+- s2m effectively represents 2–4 lineages (astro/corona), not 28 independent events.
+- Per-species collapse and R-scape were not run; the 5′ U-rich/Bunyavirales literature check is one paper.
+- Thresholds (log2 ≥1, obs ≥3, Jaccard 0.10) are my defaults; no golden standard covers them.
 
-**Sensitivity to sampling and clustering** (`results_coarse/`, `results_spread/`; hits = q<0.05, log2 enrichment >=1):
-
-| Run | whole | first 300 nt | last 300 nt | s2m 8-mers (last 300) |
-|---|---|---|---|---|
-| Main (Jaccard 0.10, first-40 RefSeq) | 90 | 819 | 1,031 | 3 |
-| Coarse clustering (Jaccard 0.005, ~genus/family level) | 27 | 118 | 230 | 3 |
-| Spread sampling (40 of 400 per family, seeded every-k-th) | 94 | 658 | 849 | 3 |
-
-Coarser clustering removes ~75-85% of terminal hits (Coronaviridae collapses to one representative), so most of the long tail depends on within-family redundancy and is exploratory. With spread sampling, 53/90, 417/819 and 559/1,031 main-run hits are reproduced (~55-65%); the rest are sample-dependent. Robust under all three runs: the s2m core k-mers.
-
-**Recovered extended element (post hoc, `results/motif_3p_hits.tsv`)**: GAGGGTAC occurs within the last 300 nt of 26 representatives (Astroviridae 16, Coronaviridae 8, Caliciviridae 1, Bunyavirales 1), 85-200 nt from the genome end. Aligning 52-nt windows around the hit gives an identical stretch `CCGAGTAGGATCGAGGGTACAG` (>=70% consensus) across astro-, calici- and coronaviruses. This matches the stem-loop II-like motif (s2m), a conserved 3'-UTR element studied in coronaviruses and astroviruses [@keep2023s2m; @lulla2021sl2]. **Verified at sequence level against Rfam RF00164** (`reference/rfam/RF00164_seed.sto`, 39 seed sequences): 38/39 contain GAGGGTAC and 26/39 contain GATCGAGGGTACAG; the first seed sequences show the same `CCGAGTAGGATCGAGGGTACAG` core. It was identified after seeing the data, so it is a recovery example, not a pre-registered positive control. Importance: it shows the pipeline can surface an experimentally studied element, whereas most other candidates are unvalidated.
-
-**`stat-check` audit**
-
-| Check | Status | Evidence |
-|---|---|---|
-| Independent units / redundancy [@bernett2024leakage Q4] | follows, partly | cluster representatives; G2 shows 9.6x inflation otherwise. Deviation: clusters only at ~85-90% identity, so effective n < 469 |
-| No joint preprocessing across compared sets | follows | background fitted per sequence, no global fitting |
-| Multiple testing (general principle #3) | follows | BH within region, n_tests reported; nested/overlapping tests dependent (limitation) |
-| Seeds / versions (principle #4) | follows | seed 42; in `run_meta.json`, not in tsv columns (validator warning) |
-| Baselines (principle #5) | follows | order-1 sensitivity, naive-vs-cluster, chain null |
-| Raw data read-only (principle #6) | follows | `data/raw` untouched; derived files separate |
-| Calibration on real data | deviates | ~20% of all tests have p<0.1; real genomes depart strongly from Markov-2 (coding, structure), so q-values are not literal error rates; cross-family replication is the safeguard |
-| Sampling | deviates | RefSeq records taken in esearch order (first 40 per family), not random: selection bias possible |
-| Thresholds (log2>=1, obs>=3, cluster J>=0.10) | no standard covers | project defaults, flagged for user decision |
-
-**Final robust candidates** (`results/robust_candidates.tsv`): k-mers with q<0.05, log2 enrichment >=1, obs>=3 in the main run AND the coarse-clustering run AND the spread-sampled run: 148 (last 300 nt 114, first 300 nt 29, whole genome 5). Top of the list is the s2m core (CGAGGGTA, TCGAGGGT, AGGGTACA, GAGGGTAC; q 5e-31 to 9e-24 in the main run, 2e-3 to 2e-2 under coarse clustering where Coronaviridae has one representative). Neighbours GGCCACGC (Astroviridae 17, Coronaviridae 8, Caliciviridae 1) and ACGCCGAG (Astroviridae 16) occur in the same genomes and probably extend the stem flanking the core (not verified). TTTTCTTA in the first 300 nt (Paramyxoviridae 26, Rhabdoviridae 9) fits the conserved gene-start/leader signals of negative-strand viruses, but I did not check that against the literature. The AU-rich 3' k-mers (TTTTAA, TTTTAAT) are also robust to resampling but weak under a local background (see above).
-
-**Structure check** (`src/structure.py`, ViennaRNA 2.7.2; 60-nt windows centred on GAGGGTAC, 26 genomes, 200 dinucleotide shuffles each): windows fold with MFE about -13 kcal/mol, but not more stably than shuffled sequence (median z=+0.42, 0/26 with empirical p<0.05). So single-sequence MFE gives no support for a stable fold. This is a weak test (MFE z-scores are insensitive for short conserved hairpins, and the real s2m structure is a conserved stem-loop supported by covariation in Rfam), so it neither confirms nor refutes the element.
-
-**Covariation of the s2m structure** (`src/covariation.py`, `results/s2m_covariation.tsv`; Rfam RF00164 seed, 39 sequences, 12 annotated base pairs): paired columns carry far more mutual information than unpaired column pairs (mean 0.56 vs 0.04 bits; Mann-Whitney p=3e-3; 6/12 pairs individually beat the unpaired null at empirical p<0.05, 6/12 show double compensatory changes, 98% of pairs canonical). ViennaRNA RNAalifold on the unannotated alignment independently recovers the outer 5-bp stem and inner helices (consensus `...(((((.(..(((.((((......))..))..))).).))))).. `, -13.0 kcal/mol). Caveats: the Rfam structure was itself derived from this alignment, so the MI test is partly circular, and seed sequences are phylogenetically redundant. The Rfam consensus also contains GGCCACGC next to the core, which confirms that this k-mer, found in the same genomes, belongs to the s2m element. This is the evidence for a conserved structure that the single-sequence MFE test could not give; I did not run R-scape or Infernal (not installed).
-
-**Non-viral negative set** (`src/host_control.py`, `results/robust_vs_host.tsv`): 323 spread-sampled human RefSeq mRNAs (NM_, 1-10 kb), clustered like the viral data to 83 representatives, run through the same engine. Of the 143 non-whole-genome robust k-mers: **72 last-300-nt and all 29 first-300-nt k-mers are viral-specific** (<5% of host windows contain them, 0% for the s2m core and GGCCACGC/ACGCCGAG, TTTTCTTA); **32 last-300-nt k-mers are generic** (also enriched in host 3' ends), including the AU-rich ones (TTTTAA host 34% vs viral 30%, q=4e-6; TTTAAA, TTTAAT, TAATTA), 10 occur in host without enrichment. So the earlier open question is answered: the AU-rich 3' signal is a generic mRNA-terminus (3'-UTR/polyadenylation-context) composition effect, not a virus-specific motif. The 5 whole-genome k-mers were not tested. Caveat: only 83 host representatives, so host power is limited, and host windows themselves give ~870 (3') and ~1,270 (5') "significant" k-mers, another sign that q-values overstate evidence under a Markov-2 background.
-
-![redundancy](figures/g2_redundancy.png)
-
-## Discussion and limitations
-- **Candidate vs validated:** a validated element has experimental support (reporter/SHAPE/mutagenesis, conservation with covariation); our candidates are statistical over-representation relative to a composition model. They may reflect phylogeny, coding/codon constraints or structure, not function [@razumova2025utr s4.4].
-- The thousands of terminal-region hits are far above what a clean motif signal would give; the background is fitted on the whole genome, so any positional composition difference (UTR vs ORF start, poly-U tracts) counts as enrichment. Treat whole-genome hits as coding-confounded.
-- Clusters at ~85-90% identity: genus-level homology (60-85% identity) is not removed, so effective n is nearer the number of genera/families than 469. The recurring 3'-end family could be one clade's conserved sequence.
-- Genus-level clustering and spread sampling done: ~55-65% of terminal hits reproduce under resampling, ~15-30% survive coarse clustering; only the robust list is reported as the headline. Structure: MFE-only check, no covariation analysis.
-- Thresholds (log2>=1, obs>=3, Jaccard) and the choice of "robust = all three variants" are my defaults; no golden standard covers them.
-- Host control uses 83 representatives; "viral-specific" means absent or not enriched in that small set, not absent from all host RNA.
-- Falsifier of the 3'-end family: absence in independent same-family genomes held out of discovery, or disappearance after genus-level clustering.
-
-## Next steps
-Experimental follow-up (reporter / SHAPE / mutagenesis) of the 101 viral-specific candidates beyond s2m; R-scape/Infernal covariation on alignments built from our own genomes (tools not installed); larger host set (>=500 representatives) and a second non-viral control (e.g. bacterial or non-coding RNA); genus-balanced sampling from more families.
-
-## Reproducibility
+## 9. Reproduce
 ```
-python3 src/fetch_qc.py --out data --per-family 40 --demo-n 50   # ~1 min, network
-python3 src/cluster.py --qc data/qc
-python3 src/run_pipeline.py --out results                         # 6 s
-python3 src/gates.py --out results --n-null 20                    # 110 s
-python3 src/analyze.py                                            # 10 s
-python3 src/robustness.py                                         # ~1 min
-python3 src/local_bg.py; python3 src/structure.py; python3 src/covariation.py; python3 src/host_control.py                 # ~1 min
-# sensitivity: cluster.py --qc data/qc_coarse --jaccard 0.005; fetch_qc.py --out data_spread --refseq-pool 400; run_pipeline.py on each
-python3 ~/.claude/skills/token-report/token_report.py
+python3 src/fetch_qc.py --out data --per-family 40 --demo-n 50 ; python3 src/cluster.py --qc data/qc
+python3 src/run_pipeline.py --out results ; python3 src/gates.py --out results --n-null 20
+python3 src/analyze.py ; python3 src/robustness.py ; python3 src/host_control.py
+python3 src/final_groups.py ; PYTHONPATH=src python3 src/heldout.py
+cmscan --cut_ga --rfam --nohmmonly --cpu 10 --tblout results/rfam_cmscan.tbl reference/rfam_full/Rfam.cm data/windows_main.fa
 pytest tests/
 ```
-Seed 42; Python 3.12, numpy/scipy/pandas; total compute well under 5 min on 10 cores.
+Seed 42; Python 3.12; Infernal 1.1.5 in conda env `rnatools`; Rfam 15.1 (not committed, 1.3 GB).
+
+## Appendix
+- Earlier, more technical results (per-region hit counts, family replication, local-background, sensitivity tables, stat-check audit): [`docs/DETAILED_RESULTS.md`](docs/DETAILED_RESULTS.md). Review that shaped this version: `changes/motif-discovery/handoff/PI_review.md`.
+- **Resource use**: see below (updated by `token-report`).
+- References: [@bernett2024leakage], [@razumova2025utr], [@jin2025mrna], [@keep2023s2m], [@lulla2021sl2], [@feldmann1992marburg] (`reference/literature/library.bib`).
+- Changelog: 2026-11-02 first results → robustness → host control → README rewritten answer-first after review; motif groups, Rfam scan, held-out test added.
 
 ## Resource use
 ![token usage](figures/token_usage.png)
 
-Tokens by API, model and problem type (`results/token_usage.tsv`; made with the global `token-report` skill, problem types are rule-based). Most output tokens went to complex-code delegation (Sonnet via API) and routine code (DeepSeek flash); the Claude Code session itself spent most input on planning and reporting. Cache reads (~11.5 M) are not plotted. Anthropic-API spend: $1.18; DeepSeek has no price table.
-
-## References
-`reference/literature/library.bib`: [@bernett2024leakage], [@razumova2025utr], [@jin2025mrna], [@keep2023s2m], [@lulla2021sl2].
-
-<details><summary>Changelog</summary>
-
-- 2026-11-02: repo, papers, spec v1->v2 (Opus review), data, pipeline, gates, first results.
-- 2026-11-02: stat-check, family-level replication, 3'-end element consistent with s2m.
-- 2026-11-02: s2m verified vs Rfam RF00164; local-background test of AU-rich 3' k-mers (weak, <2x).
-- 2026-11-02: genus-level clustering and spread-sampling sensitivity runs.
-- 2026-11-02: robust list (148), RNAfold check, token report, final README.
-- 2026-11-02: covariation of s2m seed, human-mRNA negative set (101 viral-specific / 32 generic), final README.
-</details>
+*Take-home:* Anthropic API delegates (8 real calls, ≈$1.27: Opus 3 for the statistics and PI reviews, Sonnet 4 for code, 1 Haiku connectivity test) are a small share; most tokens are Claude Code session context. Each call has a `request_id` and `served` model in `~/.claude/state/claude_api_ledger.jsonl`. DeepSeek (6 calls) has no price table. Data in `results/token_usage.tsv`.
