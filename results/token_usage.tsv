@@ -3,10 +3,10 @@ Anthropic API (delegate)	claude-opus-5-5	Method/stats review	9064	0	15364	0.3436
 Anthropic API (delegate)	claude-sonnet-5-5	Code review	2814	0	16000	0.1656	1
 Anthropic API (delegate)	claude-sonnet-5-5	Complex code	8746	0	65591	0.6734	3
 Claude Code session	claude-sonnet-5-5	Delegation orchestration	14196	646500	10919	0.0	8
-Claude Code session	claude-sonnet-5-5	Git/reporting	58773	959329	15451	0.0	12
+Claude Code session	claude-sonnet-5-5	Git/reporting	63821	1182866	18157	0.0	14
 Claude Code session	claude-sonnet-5-5	Literature search	10419	672631	16093	0.0	7
-Claude Code session	claude-sonnet-5-5	Planning & reasoning	99291	5019022	24548	0.0	53
-Claude Code session	claude-sonnet-5-5	Running analysis	18872	2147079	18181	0.0	19
-Claude Code session	claude-sonnet-5-5	Testing	14943	1102110	10058	0.0	10
+Claude Code session	claude-sonnet-5-5	Planning & reasoning	102805	5369188	26498	0.0	56
+Claude Code session	claude-sonnet-5-5	Running analysis	21221	2384646	22840	0.0	21
+Claude Code session	claude-sonnet-5-5	Testing	17898	1224148	10886	0.0	11
 DeepSeek	deepseek-flash	Routine code	3753	0	47392	0.0	3
 DeepSeek	deepseek-v4-pro	Paper reading	32532	0	15114	0.0	2
