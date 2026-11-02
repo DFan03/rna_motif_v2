@@ -1,39 +1,79 @@
 # Viral RNA regulatory-motif discovery (rna_motif_v2)
 
-**Status (2026-11-02, preliminary): literature/standards stage done, awaiting approval of the golden-standard summary; spec and data pull are next. No results yet.**
+**Status (2026-11-02, preliminary, `stat-check` not yet run): pipeline built and calibrated on 469 RefSeq RNA-virus genomes (12 families). It passes its three gates, and ranks candidate k-mers that are statistical candidates only. A recurring 3'-end motif family (ATCGAGGGTACAG-like, 3-4 families) is the first thing to follow up.**
 
 ## Abstract
-Tool to identify, count and rank candidate RNA regulatory motifs in public viral RNA sequences, with redundancy-aware statistics against a composition-matched background. Candidates are statistical patterns, not validated functional elements. Constraint: whole project < 1 h on a local M2 Pro CPU (10 cores).
+Question: which short RNA sequence patterns (k=6-8) are over-represented in viral RNA beyond what each genome's own order-2 composition predicts, counting independent sequence clusters rather than records? Approach: NCBI RefSeq pull + QC, similarity clustering, per-sequence Markov-2 background with exact Poisson-binomial tails, BH-FDR within region (whole genome / first 300 nt / last 300 nt). Result: calibration gates pass (1/20 null datasets with any BH hit; planted 8-mer recovered at rank 1, q~1e-134); naive record counting inflates hits 9.6x on a redundant set. On real data 76 whole-genome and ~740-880 terminal-region k-mers are significant, log2 enrichment >=1 and robust to an order-1 background. These are candidates, not functional elements; coding constraint and genus-level homology are not removed (see limitations).
 
 ## Workflow (live; ticked = done)
-- [x] 0. Papers read and digested: three user-provided references ([@bernett2024leakage], [@razumova2025utr], [@jin2025mrna]); quotes machine-checked. Rules: `reference/golden_standard/SUMMARY.md`
-- [ ] 1. Approve golden-standard summary (user)
-- [ ] 2. Spec (`changes/motif-discovery/`): hypothesis, methods table, tasks, gates
-- [ ] 3. Task 1, data: NCBI RefSeq viral RNA pull, QC (duplicates, non-ACGU, length outliers, missing metadata), provenance + DB version log
-- [ ] 4. Redundancy control: cluster by similarity and species; the cluster is the unit of counting ([@bernett2024leakage] Q4)
-- [ ] 5. Task 2, motif discovery: k-mer (k=4..8) enrichment vs dinucleotide-shuffled and Markov-2 backgrounds, per-cluster coverage, BH-FDR, ranking
-- [ ] 6. Positive controls: recover known elements (TOP, PRTE, rG4, Kozak, uORF) ([@razumova2025utr])
-- [ ] 7. Dry run (about 30 sequences) -> user approval -> full run
-- [ ] 8. `stat-check` audit -> results into this README
+- [x] 0. Papers read and digested ([@bernett2024leakage], [@razumova2025utr], [@jin2025mrna]); rules approved: `reference/golden_standard/SUMMARY.md`
+- [x] 1. Spec: `changes/motif-discovery/` (hypothesis, methods v2, tasks). Opus stats review (`handoff/T5.raw.md`) invalidated v1 (shuffle null cannot reach BH thresholds) -> v2
+- [x] 2. Task 1 data/QC: `src/fetch_qc.py`, provenance in `data/PROVENANCE.md` (NCBI nuccore Build261031-0025m.1, fetched 2026-11-02)
+- [x] 3. Redundancy control: `src/cluster.py` (12-mer Jaccard >= 0.10, orientation to mRNA sense for negative-sense families, low-complexity masking)
+- [x] 4. Task 2 motif engine: `src/motif.py` (12 tests pass), run in 6 s on 10 cores
+- [x] 5. Gates G1-G3 (`src/gates.py`, `results/gates.json`)
+- [x] 6. Real-data analysis (`src/analyze.py`)
+- [ ] 7. `stat-check` audit, leave-one-family-out, genus-level clustering sensitivity
+- [ ] 8. Follow-up of the recurring 3'-end motif family
 
-## Design decisions so far
-| Topic | Decision | Why |
+## Data
+469 RefSeq records after QC (12 families, 1000-35,000 nt) + 96 GenBank strains (SARS-CoV-2, Dengue 2, HCV; redundancy demo only). 55 of 620 fetched records dropped (all: >1% non-ACGT). Clustering: RefSeq collapses little (about 1 cluster per record, largest 5), demo collapses strongly (21 -> 1, 75 -> 15 clusters). Only cluster representatives are counted [@bernett2024leakage Q4].
+
+## Methods (choice -> standard)
+Order-2 Markov background fitted per sequence; exact Poisson-binomial upper tail on presence across representatives; k=6,7,8; BH within region; effect = log2((obs+0.5)/(expected+0.5)) in units of sequences. Details and rejected alternatives: `changes/motif-discovery/methods.md`. Deviations from the spec during the build: clustering uses 12-mers (8-mers saturate: unrelated 20-30 kb genomes reached Jaccard 0.26 by chance); `expected_sum` reports expected number of sequences with the k-mer (a bug had summed expected counts); G3 passes on q<0.05 and rank<=3.
+
+## Results (preliminary)
+**Calibration gates (`results/gates.json`)**
+
+| Gate | Result | Pass |
 |---|---|---|
-| Sampling bias from related viruses | cluster (default 90% identity) + species grouping; count clusters, not records | [@bernett2024leakage] Q4, Task 2 |
-| Background | dinucleotide shuffle (+ Markov-2 cross-check) | motif is not just GC/dinucleotide content |
-| Multiple testing | Benjamini-Hochberg FDR | general principle #3 |
-| Ranking | enrichment + cluster coverage + position/stability, not frequency alone | [@razumova2025utr] s4.1, 4.3 |
-| Candidate vs validated | candidates are statistical only; known functional elements used as controls, not as proof | [@razumova2025utr] s4.4 |
+| G1 null calibration: 20 order-2 chain-sampled datasets | BH hits in 1/20 runs (allowed <=1) | yes |
+| G2 redundancy bias, demo set (96 records -> 16 reps) | 21,566 hits naive vs 2,235 with representatives (9.6x) | yes (demonstrated) |
+| G3 planted GACGTCAG in 20% of reps' first 300 nt | rank 1, q~6e-134, obs 86/432 | yes |
 
-Open items not covered by any source paper: clustering cutoff, k range, background model, FDR method. Defaults above, user may override.
+G1 caveat: the null is generated by the same model family as the test (order-2 chains), so it checks implementation and tail accuracy, not fit to real genomes.
+
+**Real data (`results/summary_by_region.tsv`, n=469 representatives, 12 families)**
+
+| region | tests | q<0.05 | + log2enr>=1 | + robust to order-1 | + >=2 families nominal |
+|---|---|---|---|---|---|
+| whole | 86,011 | 3,057 | 90 | 76 | 84 |
+| first 300 nt | 36,854 | 947 | 819 | 742 | 445 |
+| last 300 nt | 35,908 | 1,195 | 1,031 | 878 | 735 |
+
+![volcano](figures/volcano.png)
+
+Top candidates after collapsing nested k-mers: `results/top_candidates.tsv`. Examples: 3' end CGAGGGTA / TCGAGGGT / AGGGTACA (overlapping, one ~13-mer ATCGAGGGTACAG, 25-31 reps = 6-7%, 3-4 families, q<1e-19); 5' end poly-U-rich TTTTCTTA (43 reps, 10%, q 1e-23); whole genome GCAGCTGC (110 reps, 25%, 7 families, log2 enr 1.03).
+
+**Known elements, descriptive (`results/known_elements.tsv`, first 300 nt vs 20 chain-sampled nulls)**: PRTE-like pyrimidine pattern modestly higher (37% vs 30%, z=2.8); TOP, canonical rG4, Kozak not enriched; ATG slightly depleted (z=-2.5). Not recovering host-mRNA elements in viral genomes is uninformative [@razumova2025utr].
+
+![redundancy](figures/g2_redundancy.png)
+
+## Discussion and limitations
+- **Candidate vs validated:** a validated element has experimental support (reporter/SHAPE/mutagenesis, conservation with covariation); our candidates are statistical over-representation relative to a composition model. They may reflect phylogeny, coding/codon constraints or structure, not function [@razumova2025utr s4.4].
+- The thousands of terminal-region hits are far above what a clean motif signal would give; the background is fitted on the whole genome, so any positional composition difference (UTR vs ORF start, poly-U tracts) counts as enrichment. Treat whole-genome hits as coding-confounded.
+- Clusters at ~85-90% identity: genus-level homology (60-85% identity) is not removed, so effective n is nearer the number of genera/families than 469. The recurring 3'-end family could be one clade's conserved sequence.
+- Not done: leave-one-family-out, structure (RNAfold not installed), Markov-2 vs real-genome fit check, `stat-check`.
+- Falsifier of the 3'-end family: absence in independent same-family genomes held out of discovery, or disappearance after genus-level clustering.
+
+## Next steps
+1) `stat-check`; 2) genus-level clustering + leave-one-family-out; 3) inspect where the 3'-end family sits (UTR vs ORF) and in which taxa.
 
 ## Reproducibility
-Seeds, versions, parameters and run commit hash will be recorded per run in `results/`. Logs: `logs/`.
+```
+python3 src/fetch_qc.py --out data --per-family 40 --demo-n 50   # ~1 min, network
+python3 src/cluster.py --qc data/qc
+python3 src/run_pipeline.py --out results                         # 6 s
+python3 src/gates.py --out results --n-null 20                    # 110 s
+python3 src/analyze.py                                            # 10 s
+pytest tests/
+```
+Seed 42; Python 3.12, numpy/scipy/pandas; total compute well under 5 min on 10 cores.
 
 ## References
-`reference/literature/library.bib`, index `reference/literature/INDEX.md`.
+`reference/literature/library.bib`: [@bernett2024leakage], [@razumova2025utr], [@jin2025mrna].
 
 <details><summary>Changelog</summary>
 
-- 2026-11-02: repo created; three papers added; draft standards summary.
+- 2026-11-02: repo, papers, spec v1->v2 (Opus review), data, pipeline, gates, first results.
 </details>

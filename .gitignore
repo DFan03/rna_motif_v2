@@ -2,3 +2,6 @@ reference/literature/pdfs/
 reference/literature/digest/*.err
 logs/
 __pycache__/
+data/raw/
+results/motifs_all.tsv
+results/motifs_order1.tsv

@@ -1,0 +1,7 @@
+{
+  "jaccard": 0.1,
+  "merge_species": false,
+  "seed": 0,
+  "numpy": "1.26.4",
+  "scipy": "1.13.1"
+}

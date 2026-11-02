@@ -1,0 +1,246 @@
+"""Cluster viral sequences per set by 12-mer Jaccard (k=12 avoids chance overlap; 8-mers saturate for >10 kb genomes) similarity."""
+from __future__ import annotations
+
+import argparse
+import csv
+import json
+import logging
+import random
+import re
+import sys
+import time
+from collections import Counter
+from pathlib import Path
+
+import numpy as np
+import scipy
+import scipy.sparse as sp
+
+LOGGER = logging.getLogger("cluster")
+K = 12
+NEG_SENSE = frozenset({"Rhabdoviridae", "Paramyxoviridae", "Orthomyxoviridae", "Bunyavirales"})
+_CODE = {c: i for i, c in enumerate("ACGT")}
+_COMP = str.maketrans("ACGTNacgtn", "TGCANtgcan")
+
+
+def revcomp(seq: str) -> str:
+    """Return reverse complement of a DNA sequence (ACGT/N; case preserved)."""
+    return seq.translate(_COMP)[::-1]
+
+
+def mask_low_complexity(seq: str) -> str:
+    """Mask homopolymer runs >=8 nt and dinucleotide repeats >=6 units with N."""
+    s = re.sub(r"(.)\1{7,}", lambda m: "N" * len(m.group(0)), seq)
+    return re.sub(r"([ACGTNacgtn]{2})\1{5,}", lambda m: "N" * len(m.group(0)), s)
+
+
+def _encode_seq(seq: str, k: int = K) -> np.ndarray:
+    lut = np.full(256, 255, dtype=np.uint8)
+    for ch, i in _CODE.items():
+        lut[ord(ch)] = lut[ord(ch.lower())] = i
+    vals = lut[np.frombuffer(seq.encode("ascii", "replace"), dtype=np.uint8)]
+    n = len(vals) - k + 1
+    if n <= 0:
+        return np.empty(0, dtype=np.int64)
+    codes, bad = np.zeros(n, dtype=np.int64), np.zeros(n, dtype=bool)
+    for j in range(k):
+        v = vals[j:j + n].astype(np.int64)
+        codes = codes * 4 + v
+        bad |= v == 255
+    codes[bad] = -1
+    return codes[codes >= 0]
+
+
+def _kmer_matrix(seqs: list[str], k: int = K) -> sp.csr_matrix:
+    rows, cols = [], []
+    for i, s in enumerate(seqs):
+        c = _encode_seq(s, k)
+        if c.size:
+            rows.append(np.full(c.size, i, dtype=np.int64))
+            cols.append(c)
+    r = np.concatenate(rows) if rows else np.empty(0, dtype=np.int64)
+    c = np.concatenate(cols) if cols else np.empty(0, dtype=np.int64)
+    mat = sp.csr_matrix((np.ones(r.size, dtype=np.int32), (r, c)), shape=(len(seqs), 4 ** k))
+    mat.sum_duplicates()
+    mat.data[:] = 1
+    return mat
+
+
+class _DSU:
+    def __init__(self, n: int) -> None:
+        self.p = list(range(n))
+
+    def find(self, x: int) -> int:
+        while self.p[x] != x:
+            self.p[x] = self.p[self.p[x]]
+            x = self.p[x]
+        return x
+
+    def union(self, a: int, b: int) -> None:
+        ra, rb = self.find(a), self.find(b)
+        if ra != rb:
+            self.p[rb] = ra
+
+
+def cluster_sequences(
+    seqs: list[str], jaccard: float = 0.10, groups: list[str | None] | None = None
+) -> list[int]:
+    """Return cluster label per sequence using 12-mer Jaccard (k=12 avoids chance overlap; 8-mers saturate for >10 kb genomes) and optional forced groups."""
+    n = len(seqs)
+    if n == 0:
+        return []
+    dsu = _DSU(n)
+    if n > 1:
+        mat = _kmer_matrix(seqs)
+        sizes = np.asarray(mat.sum(axis=1)).ravel()
+        inter = (mat @ mat.T).tocoo()
+        for i, j, v in zip(inter.row, inter.col, inter.data):
+            if i >= j:
+                continue
+            union = int(sizes[i] + sizes[j] - v)
+            if union > 0 and v / union >= jaccard:
+                dsu.union(int(i), int(j))
+    if groups is not None:
+        first: dict[str, int] = {}
+        for i, g in enumerate(groups):
+            if not g:
+                continue
+            if g in first:
+                dsu.union(first[g], i)
+            else:
+                first[g] = i
+    out, seen = [], {}
+    for i in range(n):
+        root = dsu.find(i)
+        if root not in seen:
+            seen[root] = len(seen)
+        out.append(seen[root])
+    return out
+
+
+def pick_representatives(
+    accessions: list[str], seqs: list[str], labels: list[int]
+) -> dict[int, str]:
+    """Return cluster label -> representative accession (longest; ties lowest accession)."""
+    best: dict[int, tuple[int, str]] = {}
+    for acc, seq, lab in zip(accessions, seqs, labels):
+        length = len(seq)
+        if lab not in best:
+            best[lab] = (length, acc)
+        else:
+            cur_len, cur_acc = best[lab]
+            if length > cur_len or (length == cur_len and acc < cur_acc):
+                best[lab] = (length, acc)
+    return {lab: acc for lab, (_, acc) in best.items()}
+
+
+def read_fasta(path: Path) -> dict[str, str]:
+    """Read FASTA into accession -> sequence (accession = first header token)."""
+    out: dict[str, str] = {}
+    name, chunks = None, []
+    with path.open() as fh:
+        for line in fh:
+            line = line.strip()
+            if not line:
+                continue
+            if line.startswith(">"):
+                if name is not None:
+                    out[name] = "".join(chunks)
+                name, chunks = line[1:].split()[0], []
+            else:
+                chunks.append(line)
+    if name is not None:
+        out[name] = "".join(chunks)
+    return out
+
+
+def write_fasta(path: Path, seqs: dict[str, str]) -> None:
+    """Write sequences to FASTA with accession-only headers."""
+    with path.open("w") as fh:
+        for acc in sorted(seqs):
+            fh.write(f">{acc}\n{seqs[acc]}\n")
+
+
+def main(argv: list[str] | None = None) -> int:
+    """Run preparation, per-set clustering, and write cluster outputs."""
+    p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument("--qc", type=Path, default=Path("data/qc"))
+    p.add_argument("--jaccard", type=float, default=0.10)
+    p.add_argument("--merge-species", action="store_true")
+    p.add_argument("--seed", type=int, default=0)
+    a = p.parse_args(argv)
+    logging.basicConfig(level=logging.INFO, stream=sys.stderr,
+                        format="%(asctime)s %(levelname)s %(message)s")
+    random.seed(a.seed)
+    np.random.seed(a.seed)
+    LOGGER.info("params qc=%s jaccard=%s merge_species=%s seed=%d",
+                a.qc, a.jaccard, a.merge_species, a.seed)
+    LOGGER.info("versions numpy=%s scipy=%s", np.__version__, scipy.__version__)
+
+    records = {}
+    with (a.qc / "records.tsv").open(newline="") as fh:
+        for row in csv.DictReader(fh, delimiter="\t"):
+            records[row["accession"]] = row
+
+    meta, prepared = {}, {}
+    for setname in ("refseq", "demo"):
+        seqs = {}
+        for acc, seq in read_fasta(a.qc / f"kept_{setname}.fa").items():
+            rec = records.get(acc, {})
+            fam = rec.get("family", "")
+            oriented = fam in NEG_SENSE
+            s = seq.upper()
+            seqs[acc] = mask_low_complexity(revcomp(s) if oriented else s)
+            meta[acc] = (setname, fam, rec.get("organism", ""), oriented)
+        prepared[setname] = seqs
+        write_fasta(a.qc / f"prepared_{setname}.fa", seqs)
+        LOGGER.info("prepared %s: %d sequences", setname, len(seqs))
+
+    total = sum(len(v) for v in prepared.values())
+    done, start, rows = 0, time.time(), []
+    for setname in ("refseq", "demo"):
+        seqs_dict = prepared[setname]
+        accs = sorted(seqs_dict)
+        seqs = [seqs_dict[x] for x in accs]
+        groups = [meta[x][2] or None for x in accs] if a.merge_species else None
+        labels = cluster_sequences(seqs, a.jaccard, groups)
+        sizes = Counter(labels)
+        reps = pick_representatives(accs, seqs, labels)
+        for acc, lab in zip(accs, labels):
+            st, fam, org, ori = meta[acc]
+            rows.append({"accession": acc, "set": st, "family": fam, "organism": org,
+                         "length": len(seqs_dict[acc]), "oriented": str(ori).lower(),
+                         "cluster_id": f"{setname}_C{lab:04d}", "cluster_size": sizes[lab],
+                         "is_rep": str(acc == reps[lab]).lower()})
+        done += len(accs)
+        LOGGER.info("clustered %s: %d/%d (%.1f%%) elapsed=%.1fs", setname, done, total,
+                    100.0 * done / max(total, 1), time.time() - start)
+
+    fields = ["accession", "set", "family", "organism", "length", "oriented",
+              "cluster_id", "cluster_size", "is_rep"]
+    rows.sort(key=lambda r: (r["set"], r["cluster_id"], r["accession"]))
+    with (a.qc / "clusters.tsv").open("w", newline="") as fh:
+        w = csv.DictWriter(fh, fieldnames=fields, delimiter="\t")
+        w.writeheader()
+        w.writerows(rows)
+
+    summary: dict[tuple[str, str], list] = {}
+    for r in rows:
+        e = summary.setdefault((r["set"], r["family"]), [0, set(), 0])
+        e[0] += 1
+        e[1].add(r["cluster_id"])
+        e[2] = max(e[2], r["cluster_size"])
+    lines = ["set\tfamily\tn_records\tn_clusters\tlargest_cluster"]
+    lines += [f"{s}\t{f}\t{n}\t{len(c)}\t{l}" for (s, f), (n, c, l) in sorted(summary.items())]
+    text = "\n".join(lines) + "\n"
+    (a.qc / "cluster_summary.tsv").write_text(text)
+    sys.stdout.write(text)
+    (a.qc / "cluster_run_info.json").write_text(json.dumps(
+        {"jaccard": a.jaccard, "merge_species": a.merge_species, "seed": a.seed,
+         "numpy": np.__version__, "scipy": scipy.__version__}, indent=2))
+    LOGGER.info("wrote clusters.tsv (%d rows) and cluster_summary.tsv", len(rows))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

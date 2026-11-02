@@ -1,0 +1,6 @@
+element	frac_reps_5p300	null_mean	null_sd	z
+TOP CYYYYYY (pos1-7)	0.007	0.012	0.006	-0.8
+PRTE YYYYYTYYY	0.368	0.301	0.024	2.8
+rG4 canonical	0.0	0.001	0.001	-0.6
+Kozak GCC[AG]CCATGG	0.002	0.001	0.001	1.5
+uAUG (ATG in 5'300)	0.984	0.994	0.004	-2.5

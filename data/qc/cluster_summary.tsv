@@ -1,0 +1,15 @@
+set	family	n_records	n_clusters	largest_cluster
+demo	Coronaviridae	21	1	21
+demo	Flaviviridae	75	15	34
+refseq	Astroviridae	40	35	4
+refseq	Bunyavirales	40	40	1
+refseq	Caliciviridae	40	38	2
+refseq	Coronaviridae	40	36	2
+refseq	Flaviviridae	40	38	2
+refseq	Nodaviridae	30	23	5
+refseq	Orthomyxoviridae	40	38	2
+refseq	Paramyxoviridae	39	39	1
+refseq	Picornaviridae	40	40	1
+refseq	Retroviridae	40	32	3
+refseq	Rhabdoviridae	40	40	1
+refseq	Togaviridae	40	33	3

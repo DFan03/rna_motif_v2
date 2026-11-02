@@ -1,0 +1,28 @@
+{
+ "G3": {
+  "spiked": "GACGTCAG",
+  "frac": 0.2,
+  "rank": 1,
+  "q": 6.505809569141661e-134,
+  "obs": 86,
+  "n_seqs": 432,
+  "pass": true
+ },
+ "G2": {
+  "n_records": 96,
+  "n_cluster_reps": 16,
+  "hits_q05_naive_all_records": 21566,
+  "hits_q05_cluster_reps": 2235,
+  "tests_naive": 69115,
+  "inflation_factor": 9.649217002237137
+ },
+ "G1": {
+  "n_null": 20,
+  "runs_with_any_BH_hit": 1,
+  "frac": 0.05,
+  "pass": true,
+  "median_p": 0.5165383057684918,
+  "frac_p_lt_0.001": 0.0009440208428641266
+ },
+ "elapsed_s": 110.1
+}

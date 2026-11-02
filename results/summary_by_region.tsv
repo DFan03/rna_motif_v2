@@ -1,0 +1,4 @@
+region	n_tests	q05	q05_log2ge1	robust_order1	replicated_ge2fam
+3p300	35908	1195	1031	878	735
+5p300	36854	947	819	742	445
+whole	86011	3057	90	76	84

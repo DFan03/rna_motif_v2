@@ -1,0 +1,566 @@
+accession	set	family	organism	length	oriented	cluster_id	cluster_size	is_rep
+OP593112.1	demo	Flaviviridae	dengue virus type 2	10426	false	demo_C0000	34	false
+OZ570090.1	demo	Flaviviridae	dengue virus type 2	10522	false	demo_C0000	34	false
+OZ570215.1	demo	Flaviviridae	dengue virus type 2	10534	false	demo_C0000	34	false
+PV653863.1	demo	Flaviviridae	dengue virus type 2	10716	false	demo_C0000	34	false
+PV653873.1	demo	Flaviviridae	dengue virus type 2	10716	false	demo_C0000	34	false
+PV710426.1	demo	Flaviviridae	dengue virus type 2	10716	false	demo_C0000	34	false
+PV710436.1	demo	Flaviviridae	dengue virus type 2	10716	false	demo_C0000	34	false
+PV710446.1	demo	Flaviviridae	dengue virus type 2	10680	false	demo_C0000	34	false
+PV710456.1	demo	Flaviviridae	dengue virus type 2	10676	false	demo_C0000	34	false
+PX435662.1	demo	Flaviviridae	dengue virus type 2	10589	false	demo_C0000	34	false
+PX435672.1	demo	Flaviviridae	dengue virus type 2	10589	false	demo_C0000	34	false
+PX435682.1	demo	Flaviviridae	dengue virus type 2	10589	false	demo_C0000	34	false
+PX435692.1	demo	Flaviviridae	dengue virus type 2	10588	false	demo_C0000	34	false
+PX435702.1	demo	Flaviviridae	dengue virus type 2	10588	false	demo_C0000	34	false
+PX435712.1	demo	Flaviviridae	dengue virus type 2	10589	false	demo_C0000	34	false
+PX435722.1	demo	Flaviviridae	dengue virus type 2	10588	false	demo_C0000	34	false
+PX435732.1	demo	Flaviviridae	dengue virus type 2	10593	false	demo_C0000	34	false
+PX435742.1	demo	Flaviviridae	dengue virus type 2	10603	false	demo_C0000	34	false
+PX435752.1	demo	Flaviviridae	dengue virus type 2	10588	false	demo_C0000	34	false
+PX435762.1	demo	Flaviviridae	dengue virus type 2	10610	false	demo_C0000	34	false
+PX435772.1	demo	Flaviviridae	dengue virus type 2	10588	false	demo_C0000	34	false
+PX435782.1	demo	Flaviviridae	dengue virus type 2	10593	false	demo_C0000	34	false
+PX435792.1	demo	Flaviviridae	dengue virus type 2	10591	false	demo_C0000	34	false
+PX461019.1	demo	Flaviviridae	dengue virus type 2	10511	false	demo_C0000	34	false
+PZ185673.1	demo	Flaviviridae	dengue virus type 2	10713	false	demo_C0000	34	false
+PZ337003.1	demo	Flaviviridae	dengue virus type 2	10593	false	demo_C0000	34	false
+PZ337076.1	demo	Flaviviridae	dengue virus type 2	10593	false	demo_C0000	34	false
+PZ603442.1	demo	Flaviviridae	dengue virus type 2	10562	false	demo_C0000	34	false
+PZ963032.1	demo	Flaviviridae	dengue virus type 2	10176	false	demo_C0000	34	false
+PZ963042.1	demo	Flaviviridae	dengue virus type 2	10176	false	demo_C0000	34	false
+QB138977.1	demo	Flaviviridae	dengue virus type 2	10711	false	demo_C0000	34	false
+QB169259.1	demo	Flaviviridae	dengue virus type 2	10555	false	demo_C0000	34	false
+QB169269.1	demo	Flaviviridae	dengue virus type 2	10594	false	demo_C0000	34	false
+QB208737.1	demo	Flaviviridae	dengue virus type 2	10723	false	demo_C0000	34	true
+OZ578780.1	demo	Coronaviridae	Severe acute respiratory syndrome coronavirus 2	29862	false	demo_C0001	21	true
+QB238958.1	demo	Coronaviridae	Severe acute respiratory syndrome coronavirus 2	29780	false	demo_C0001	21	false
+QB238968.1	demo	Coronaviridae	Severe acute respiratory syndrome coronavirus 2	29779	false	demo_C0001	21	false
+QB238978.1	demo	Coronaviridae	Severe acute respiratory syndrome coronavirus 2	29779	false	demo_C0001	21	false
+QB238988.1	demo	Coronaviridae	Severe acute respiratory syndrome coronavirus 2	29779	false	demo_C0001	21	false
+QB238998.1	demo	Coronaviridae	Severe acute respiratory syndrome coronavirus 2	29776	false	demo_C0001	21	false
+QB239018.1	demo	Coronaviridae	Severe acute respiratory syndrome coronavirus 2	29583	false	demo_C0001	21	false
+QB239028.1	demo	Coronaviridae	Severe acute respiratory syndrome coronavirus 2	29589	false	demo_C0001	21	false
+QB239038.1	demo	Coronaviridae	Severe acute respiratory syndrome coronavirus 2	29631	false	demo_C0001	21	false
+QB239048.1	demo	Coronaviridae	Severe acute respiratory syndrome coronavirus 2	29586	false	demo_C0001	21	false
+QB240323.1	demo	Coronaviridae	Severe acute respiratory syndrome coronavirus 2	29649	false	demo_C0001	21	false
+QB240343.1	demo	Coronaviridae	Severe acute respiratory syndrome coronavirus 2	29649	false	demo_C0001	21	false
+QB253983.1	demo	Coronaviridae	Severe acute respiratory syndrome coronavirus 2	29694	false	demo_C0001	21	false
+QB259716.1	demo	Coronaviridae	Severe acute respiratory syndrome coronavirus 2	29525	false	demo_C0001	21	false
+QB261446.1	demo	Coronaviridae	Severe acute respiratory syndrome coronavirus 2	29793	false	demo_C0001	21	false
+QB261456.1	demo	Coronaviridae	Severe acute respiratory syndrome coronavirus 2	29771	false	demo_C0001	21	false
+QB263733.1	demo	Coronaviridae	Severe acute respiratory syndrome coronavirus 2	29744	false	demo_C0001	21	false
+QB263753.1	demo	Coronaviridae	Severe acute respiratory syndrome coronavirus 2	29744	false	demo_C0001	21	false
+QB263773.1	demo	Coronaviridae	Severe acute respiratory syndrome coronavirus 2	29744	false	demo_C0001	21	false
+QB264024.1	demo	Coronaviridae	Severe acute respiratory syndrome coronavirus 2	29703	false	demo_C0001	21	false
+QB264054.1	demo	Coronaviridae	Severe acute respiratory syndrome coronavirus 2	29688	false	demo_C0001	21	false
+PQ638465.1	demo	Flaviviridae	Orthohepacivirus hominis	9030	false	demo_C0002	1	true
+PQ638475.1	demo	Flaviviridae	Orthohepacivirus hominis	9021	false	demo_C0003	1	true
+PQ638485.1	demo	Flaviviridae	Orthohepacivirus hominis	9024	false	demo_C0004	1	true
+PQ638495.1	demo	Flaviviridae	Orthohepacivirus hominis	9021	false	demo_C0005	1	true
+PQ638505.1	demo	Flaviviridae	Orthohepacivirus hominis	9060	false	demo_C0006	1	true
+PX386884.1	demo	Flaviviridae	Orthohepacivirus hominis	9417	false	demo_C0007	7	false
+PX386934.1	demo	Flaviviridae	Orthohepacivirus hominis	9416	false	demo_C0007	7	false
+PZ302464.1	demo	Flaviviridae	Orthohepacivirus hominis	9075	false	demo_C0007	7	false
+PZ302474.1	demo	Flaviviridae	Orthohepacivirus hominis	9442	false	demo_C0007	7	true
+PZ885251.1	demo	Flaviviridae	Orthohepacivirus hominis	8970	false	demo_C0007	7	false
+PZ885261.1	demo	Flaviviridae	Orthohepacivirus hominis	8970	false	demo_C0007	7	false
+PZ885311.1	demo	Flaviviridae	Orthohepacivirus hominis	8970	false	demo_C0007	7	false
+PX386894.1	demo	Flaviviridae	Orthohepacivirus hominis	9284	false	demo_C0008	11	false
+PX386924.1	demo	Flaviviridae	Orthohepacivirus hominis	9219	false	demo_C0008	11	false
+PX387014.1	demo	Flaviviridae	Orthohepacivirus hominis	9306	false	demo_C0008	11	false
+PX387024.1	demo	Flaviviridae	Orthohepacivirus hominis	9309	false	demo_C0008	11	false
+PZ302454.1	demo	Flaviviridae	Orthohepacivirus hominis	9386	false	demo_C0008	11	true
+PZ302484.1	demo	Flaviviridae	Orthohepacivirus hominis	9167	false	demo_C0008	11	false
+PZ885231.1	demo	Flaviviridae	Orthohepacivirus hominis	8940	false	demo_C0008	11	false
+PZ885241.1	demo	Flaviviridae	Orthohepacivirus hominis	7218	false	demo_C0008	11	false
+PZ885291.1	demo	Flaviviridae	Orthohepacivirus hominis	8940	false	demo_C0008	11	false
+PZ885301.1	demo	Flaviviridae	Orthohepacivirus hominis	8940	false	demo_C0008	11	false
+PZ885321.1	demo	Flaviviridae	Orthohepacivirus hominis	8940	false	demo_C0008	11	false
+PX386964.1	demo	Flaviviridae	Orthohepacivirus hominis	9406	false	demo_C0009	1	true
+PX386974.1	demo	Flaviviridae	Orthohepacivirus hominis	9319	false	demo_C0010	1	true
+PX386994.1	demo	Flaviviridae	Orthohepacivirus hominis	9226	false	demo_C0011	1	true
+PZ098530.1	demo	Flaviviridae	Orthohepacivirus hominis	9315	false	demo_C0012	9	true
+PZ098540.1	demo	Flaviviridae	Orthohepacivirus hominis	9315	false	demo_C0012	9	false
+PZ746458.1	demo	Flaviviridae	Orthohepacivirus hominis	9210	false	demo_C0012	9	false
+PZ746468.1	demo	Flaviviridae	Orthohepacivirus hominis	9210	false	demo_C0012	9	false
+PZ746488.1	demo	Flaviviridae	Orthohepacivirus hominis	9210	false	demo_C0012	9	false
+PZ746498.1	demo	Flaviviridae	Orthohepacivirus hominis	9210	false	demo_C0012	9	false
+PZ746518.1	demo	Flaviviridae	Orthohepacivirus hominis	9210	false	demo_C0012	9	false
+PZ885271.1	demo	Flaviviridae	Orthohepacivirus hominis	8937	false	demo_C0012	9	false
+PZ885281.1	demo	Flaviviridae	Orthohepacivirus hominis	8937	false	demo_C0012	9	false
+PZ745139.1	demo	Flaviviridae	Orthohepacivirus hominis	9560	false	demo_C0013	1	true
+PZ746448.1	demo	Flaviviridae	Orthohepacivirus hominis	9240	false	demo_C0014	4	true
+PZ746478.1	demo	Flaviviridae	Orthohepacivirus hominis	9240	false	demo_C0014	4	false
+PZ746508.1	demo	Flaviviridae	Orthohepacivirus hominis	9240	false	demo_C0014	4	false
+PZ746528.1	demo	Flaviviridae	Orthohepacivirus hominis	9240	false	demo_C0014	4	false
+PZ883829.1	demo	Flaviviridae	Orthohepacivirus hominis	9498	false	demo_C0015	1	true
+NC_000858.1	refseq	Retroviridae	Primate T-lymphotropic virus 1	9028	false	refseq_C0000	1	true
+NC_000940.1	refseq	Caliciviridae	Cowden I virus	7320	false	refseq_C0001	1	true
+NC_001364.1	refseq	Retroviridae	Western chimpanzee simian foamy virus	13246	false	refseq_C0002	3	true
+NC_039024.1	refseq	Retroviridae	Central chimpanzee simian foamy virus	13220	false	refseq_C0002	3	false
+NC_039025.1	refseq	Retroviridae	Eastern chimpanzee simian foamy virus	11954	false	refseq_C0002	3	false
+NC_001411.2	refseq	Nodaviridae	Black beetle virus	3106	false	refseq_C0003	2	false
+NC_004146.1	refseq	Nodaviridae	Flock House virus	3107	false	refseq_C0003	2	true
+NC_001449.1	refseq	Togaviridae	Venezuelan equine encephalitis virus	11444	false	refseq_C0004	3	false
+NC_038671.1	refseq	Togaviridae	Everglades virus	11395	false	refseq_C0004	3	false
+NC_075022.1	refseq	Togaviridae	Venezuelan equine encephalitis virus	11447	false	refseq_C0004	3	true
+NC_001472.1	refseq	Picornaviridae	Enterovirus B	7389	false	refseq_C0005	1	true
+NC_001474.2	refseq	Flaviviridae	dengue virus type 2	10723	false	refseq_C0006	1	true
+NC_001475.2	refseq	Flaviviridae	dengue virus type 3	10707	false	refseq_C0007	1	true
+NC_001512.1	refseq	Togaviridae	Onyong-nyong virus	11835	false	refseq_C0008	2	true
+NC_075006.1	refseq	Togaviridae	Onyong-nyong virus	11822	false	refseq_C0008	2	false
+NC_001544.1	refseq	Togaviridae	Ross River virus	11657	false	refseq_C0009	2	false
+NC_075016.1	refseq	Togaviridae	Ross River virus	11948	false	refseq_C0009	2	true
+NC_001547.1	refseq	Togaviridae	Sindbis virus	11703	false	refseq_C0010	1	true
+NC_001563.2	refseq	Flaviviridae	West Nile virus	10962	false	refseq_C0011	1	true
+NC_001612.1	refseq	Picornaviridae	Enterovirus A	7413	false	refseq_C0012	1	true
+NC_001654.1	refseq	Retroviridae	Jembrana disease virus	7732	false	refseq_C0013	1	true
+NC_001786.1	refseq	Togaviridae	Barmah Forest virus	11488	false	refseq_C0014	1	true
+NC_001846.1	refseq	Coronaviridae	Murine hepatitis virus	31357	false	refseq_C0015	1	true
+NC_001885.3	refseq	Retroviridae	Gibbon ape leukemia virus	8088	false	refseq_C0016	2	true
+NC_009424.5	refseq	Retroviridae	Woolly monkey sarcoma virus	5779	false	refseq_C0016	2	false
+NC_002037.1	refseq	Nodaviridae	Black beetle virus	1399	false	refseq_C0017	1	true
+NC_002204.1	refseq	Orthomyxoviridae	Influenza B virus (B/Lee/1940)	2368	true	refseq_C0018	1	true
+NC_002640.1	refseq	Flaviviridae	dengue virus type 4	10649	false	refseq_C0019	1	true
+NC_002645.1	refseq	Coronaviridae	Human coronavirus 229E	27317	false	refseq_C0020	2	false
+NC_028752.1	refseq	Coronaviridae	Camel alphacoronavirus	27395	false	refseq_C0020	2	true
+NC_002690.1	refseq	Nodaviridae	Nodamura virus	3204	false	refseq_C0021	1	true
+NC_002691.1	refseq	Nodaviridae	Nodamura virus	1336	false	refseq_C0022	1	true
+NC_003215.1	refseq	Togaviridae	Semliki Forest virus	11442	false	refseq_C0023	1	true
+NC_003323.1	refseq	Retroviridae	Primate T-lymphotropic virus 3	8918	false	refseq_C0024	1	true
+NC_003417.1	refseq	Togaviridae	Mayaro virus	11411	false	refseq_C0025	1	true
+NC_003433.1	refseq	Togaviridae	Sleeping disease virus	11900	false	refseq_C0026	2	false
+NC_003930.1	refseq	Togaviridae	Salmon pancreas disease virus	11919	false	refseq_C0026	2	true
+NC_003448.1	refseq	Nodaviridae	Striped jack nervous necrosis virus	3107	false	refseq_C0027	1	true
+NC_003449.1	refseq	Nodaviridae	Striped jack nervous necrosis virus	1421	false	refseq_C0028	5	false
+NC_008041.1	refseq	Nodaviridae	Redspotted grouper nervous necrosis virus	1434	false	refseq_C0028	5	true
+NC_013459.1	refseq	Nodaviridae	Barfin flounder nervous necrosis virus	1433	false	refseq_C0028	5	false
+NC_013461.1	refseq	Nodaviridae	Tiger puffer nervous necrosis virus	1422	false	refseq_C0028	5	false
+NC_024493.1	refseq	Nodaviridae	Senegalese sole Iberian betanodavirus	1421	false	refseq_C0028	5	false
+NC_003691.1	refseq	Nodaviridae	Pariacoto virus	3011	false	refseq_C0029	1	true
+NC_003692.1	refseq	Nodaviridae	Pariacoto virus	1311	false	refseq_C0030	1	true
+NC_003899.1	refseq	Togaviridae	Eastern equine encephalitis virus	11675	false	refseq_C0031	1	true
+NC_003900.1	refseq	Togaviridae	Aura virus	11824	false	refseq_C0032	1	true
+NC_003908.1	refseq	Togaviridae	Western equine encephalitis virus	11484	false	refseq_C0033	2	false
+NC_075015.1	refseq	Togaviridae	Western equine encephalitis virus	11562	false	refseq_C0033	2	true
+NC_004064.1	refseq	Caliciviridae	Nebraska virus	7453	false	refseq_C0034	1	true
+NC_004142.1	refseq	Nodaviridae	Boolarra virus	3096	false	refseq_C0035	1	true
+NC_004144.1	refseq	Nodaviridae	Flock House virus	1400	false	refseq_C0036	1	true
+NC_004145.1	refseq	Nodaviridae	Boolarra virus	1305	false	refseq_C0037	1	true
+NC_004162.2	refseq	Togaviridae	Chikungunya virus	11826	false	refseq_C0038	1	true
+NC_004718.3	refseq	Coronaviridae	SARS coronavirus Tor2	29751	false	refseq_C0039	1	true
+NC_004908.1	refseq	Orthomyxoviridae	Influenza A virus (A/Hong Kong/1073/99(H9N2))	1714	true	refseq_C0040	1	true
+NC_004909.1	refseq	Orthomyxoviridae	Influenza A virus (A/Hong Kong/1073/99(H9N2))	1418	true	refseq_C0041	1	true
+NC_004910.1	refseq	Orthomyxoviridae	Influenza A virus (A/Hong Kong/1073/99(H9N2))	2341	true	refseq_C0042	2	true
+NC_007357.1	refseq	Orthomyxoviridae	Influenza A virus (A/goose/Guangdong/1/1996(H5N1))	2341	true	refseq_C0042	2	false
+NC_004911.1	refseq	Orthomyxoviridae	Influenza A virus (A/Hong Kong/1073/99(H9N2))	2328	true	refseq_C0043	1	true
+NC_004912.1	refseq	Orthomyxoviridae	Influenza A virus (A/Hong Kong/1073/99(H9N2))	2225	true	refseq_C0044	2	false
+NC_007359.1	refseq	Orthomyxoviridae	Influenza A virus (A/goose/Guangdong/1/1996(H5N1))	2233	true	refseq_C0044	2	true
+NC_005094.1	refseq	Nodaviridae	Macrobrachium rosenbergii nodavirus	3202	false	refseq_C0045	1	true
+NC_005095.1	refseq	Nodaviridae	Macrobrachium rosenbergii nodavirus	1175	false	refseq_C0046	1	true
+NC_005218.1	refseq	Bunyavirales	Orthohantavirus hantanense	1696	true	refseq_C0047	1	true
+NC_005219.1	refseq	Bunyavirales	Orthohantavirus hantanense	3616	true	refseq_C0048	1	true
+NC_005233.1	refseq	Bunyavirales	Orthohantavirus dobravaense	1673	true	refseq_C0049	1	true
+NC_005234.1	refseq	Bunyavirales	Orthohantavirus dobravaense	3635	true	refseq_C0050	1	true
+NC_005235.1	refseq	Bunyavirales	Orthohantavirus dobravaense	6532	true	refseq_C0051	1	true
+NC_005831.2	refseq	Coronaviridae	Human coronavirus NL63	27553	false	refseq_C0052	1	true
+NC_006558.1	refseq	Togaviridae	Getah virus	11597	false	refseq_C0053	1	true
+NC_006577.2	refseq	Coronaviridae	Human coronavirus HKU1	29926	false	refseq_C0054	1	true
+NC_007360.1	refseq	Orthomyxoviridae	Influenza A virus (A/goose/Guangdong/1/1996(H5N1))	1565	true	refseq_C0055	1	true
+NC_007361.1	refseq	Orthomyxoviridae	Influenza A virus (A/goose/Guangdong/1/1996(H5N1))	1458	true	refseq_C0056	1	true
+NC_008040.1	refseq	Nodaviridae	Redspotted grouper nervous necrosis virus	3105	false	refseq_C0057	2	true
+NC_024492.1	refseq	Nodaviridae	Senegalese sole Iberian betanodavirus	3105	false	refseq_C0057	2	false
+NC_009019.1	refseq	Coronaviridae	Tylonycteris bat coronavirus HKU4	30286	false	refseq_C0058	1	true
+NC_009020.1	refseq	Coronaviridae	Pipistrellus bat coronavirus HKU5	30482	false	refseq_C0059	1	true
+NC_009021.1	refseq	Coronaviridae	Rousettus bat coronavirus HKU9	29114	false	refseq_C0060	1	true
+NC_009657.1	refseq	Coronaviridae	Scotophilus bat coronavirus 512	28203	false	refseq_C0061	1	true
+NC_009942.1	refseq	Flaviviridae	West Nile virus	11029	false	refseq_C0062	1	true
+NC_009988.1	refseq	Coronaviridae	Rhinolophus bat coronavirus HKU2	27165	false	refseq_C0063	1	true
+NC_010438.1	refseq	Coronaviridae	Miniopterus bat coronavirus HKU8	28773	false	refseq_C0064	1	true
+NC_011704.1	refseq	Caliciviridae	Rabbit calicivirus Australia 1 MIC-07	7422	false	refseq_C0065	1	true
+NC_012532.1	refseq	Flaviviridae	Zika virus	10794	false	refseq_C0066	2	false
+NC_035889.1	refseq	Flaviviridae	Zika virus	10808	false	refseq_C0066	2	true
+NC_012533.1	refseq	Flaviviridae	Kedougou virus	10723	false	refseq_C0067	1	true
+NC_012534.1	refseq	Flaviviridae	Bagaza virus	10941	false	refseq_C0068	1	true
+NC_012561.1	refseq	Togaviridae	Highlands J virus	11526	false	refseq_C0069	1	true
+NC_012699.1	refseq	Caliciviridae	Calicivirus pig/AB90/CAN	6434	false	refseq_C0070	1	true
+NC_012735.1	refseq	Flaviviridae	Wesselsbron virus	10814	false	refseq_C0071	1	true
+NC_013458.1	refseq	Nodaviridae	Barfin flounder nervous necrosis virus	3101	false	refseq_C0072	2	false
+NC_013460.1	refseq	Nodaviridae	Tiger puffer nervous necrosis virus	3112	false	refseq_C0072	2	true
+NC_013528.1	refseq	Togaviridae	Fort Morgan virus	11381	false	refseq_C0073	1	true
+NC_014470.1	refseq	Coronaviridae	Bat coronavirus BM48-31/BGR/2008	29276	false	refseq_C0074	1	true
+NC_014977.1	refseq	Nodaviridae	Penaeus vannamei nodavirus	1183	false	refseq_C0075	1	true
+NC_014978.1	refseq	Nodaviridae	Penaeus vannamei nodavirus	3111	false	refseq_C0076	1	true
+NC_015069.1	refseq	Nodaviridae	Santeuil nodavirus	3628	false	refseq_C0077	1	true
+NC_015070.1	refseq	Nodaviridae	Santeuil nodavirus	2653	false	refseq_C0078	1	true
+NC_016959.1	refseq	Togaviridae	Ndumu virus	11688	false	refseq_C0079	1	true
+NC_016960.1	refseq	Togaviridae	Southern elephant seal virus	11245	false	refseq_C0080	1	true
+NC_016961.1	refseq	Togaviridae	Whataroa virus	11616	false	refseq_C0081	1	true
+NC_016962.1	refseq	Togaviridae	Bebaru virus	11877	false	refseq_C0082	1	true
+NC_016991.1	refseq	Coronaviridae	White-eye coronavirus HKU16	26041	false	refseq_C0083	1	true
+NC_016992.1	refseq	Coronaviridae	Sparrow coronavirus HKU17	26083	false	refseq_C0084	2	true
+NC_039208.1	refseq	Coronaviridae	Porcine coronavirus HKU15	25425	false	refseq_C0084	2	false
+NC_016993.1	refseq	Coronaviridae	Magpie-robin coronavirus HKU18	26689	false	refseq_C0085	1	true
+NC_016995.1	refseq	Coronaviridae	Wigeon coronavirus HKU20	26227	false	refseq_C0086	1	true
+NC_016996.1	refseq	Coronaviridae	Common moorhen coronavirus HKU21	26223	false	refseq_C0087	1	true
+NC_017083.1	refseq	Coronaviridae	Rabbit coronavirus HKU14	31100	false	refseq_C0088	1	true
+NC_017936.1	refseq	Caliciviridae	Bat sapovirus TLC58/HK	7696	false	refseq_C0089	1	true
+NC_018615.1	refseq	Togaviridae	Eilat virus	11634	false	refseq_C0090	1	true
+NC_018871.1	refseq	Coronaviridae	Rousettus bat coronavirus HKU10	28494	false	refseq_C0091	1	true
+NC_019712.1	refseq	Caliciviridae	Mink calicivirus	8427	false	refseq_C0092	1	true
+NC_022517.1	refseq	Retroviridae	Baboon endogenous virus strain M7	8507	false	refseq_C0093	1	true
+NC_022518.1	refseq	Retroviridae	Human endogenous retrovirus K113	9472	false	refseq_C0094	1	true
+NC_023153.1	refseq	Retroviridae	Citrus endogenous pararetrovirus	6996	false	refseq_C0095	1	true
+NC_023629.1	refseq	Astroviridae	Bovine astrovirus B76/HK	6253	false	refseq_C0096	2	false
+NC_023632.1	refseq	Astroviridae	Bovine astrovirus B170/HK	6317	false	refseq_C0096	2	true
+NC_023630.1	refseq	Astroviridae	Bovine astrovirus B76-2/HK	6301	false	refseq_C0097	4	true
+NC_023631.1	refseq	Astroviridae	Bovine astrovirus B18/HK	6300	false	refseq_C0097	4	false
+NC_024297.1	refseq	Astroviridae	Bovine astrovirus	6233	false	refseq_C0097	4	false
+NC_037655.1	refseq	Astroviridae	Sichuan takin astrovirus	6233	false	refseq_C0097	4	false
+NC_023636.1	refseq	Astroviridae	Porcine astrovirus 5	6500	false	refseq_C0098	1	true
+NC_023674.1	refseq	Astroviridae	Porcine astrovirus 2	6318	false	refseq_C0099	1	true
+NC_023675.1	refseq	Astroviridae	Porcine astrovirus 4	6639	false	refseq_C0100	1	true
+NC_023812.1	refseq	Togaviridae	Madariaga virus	11624	false	refseq_C0101	2	true
+NC_075011.1	refseq	Togaviridae	Madariaga virus	11604	false	refseq_C0101	2	false
+NC_023861.2	refseq	Picornaviridae	Sicinivirus A	9798	false	refseq_C0102	1	true
+NC_024031.1	refseq	Caliciviridae	Atlantic salmon calicivirus	7443	false	refseq_C0103	1	true
+NC_024078.1	refseq	Caliciviridae	Goose calicivirus	8013	false	refseq_C0104	1	true
+NC_024472.1	refseq	Astroviridae	Human astrovirus BF34	6577	false	refseq_C0105	1	true
+NC_024498.1	refseq	Astroviridae	Bovine astrovirus CH13	6530	false	refseq_C0106	1	true
+NC_024701.1	refseq	Astroviridae	Feline astrovirus D1	6598	false	refseq_C0107	1	true
+NC_024887.1	refseq	Togaviridae	Middelburg virus	11550	false	refseq_C0108	1	true
+NC_025346.1	refseq	Astroviridae	Rabbit astrovirus TN/2208/2010	7353	false	refseq_C0109	1	true
+NC_025379.2	refseq	Astroviridae	Mamastrovirus 3	6705	false	refseq_C0110	1	true
+NC_025676.1	refseq	Caliciviridae	San Miguel sea lion virus 8	8489	false	refseq_C0111	1	true
+NC_026011.1	refseq	Coronaviridae	Betacoronavirus HKU24	31249	false	refseq_C0112	1	true
+NC_026314.1	refseq	Picornaviridae	rabovirus A1	7853	false	refseq_C0113	1	true
+NC_026814.1	refseq	Astroviridae	Canine astrovirus	6617	false	refseq_C0114	2	true
+NC_043416.1	refseq	Astroviridae	Astrovirus dogfaeces/Italy/2005	2756	false	refseq_C0114	2	false
+NC_027026.1	refseq	Caliciviridae	Sapovirus Hu/Nagoya/NGY-1/2012/JPN	7521	false	refseq_C0115	1	true
+NC_027117.1	refseq	Retroviridae	Desmodus rotundus endogenous retrovirus	10485	false	refseq_C0116	1	true
+NC_027122.1	refseq	Caliciviridae	Vesivirus ferret badger/JX12/China/2012	8376	false	refseq_C0117	1	true
+NC_027426.1	refseq	Astroviridae	Astrovirus Er/SZAL6/HUN/2011	7025	false	refseq_C0118	1	true
+NC_027711.1	refseq	Astroviridae	Dromedary astrovirus	6327	false	refseq_C0119	1	true
+NC_027819.1	refseq	Flaviviridae	Mercadeo virus	10938	false	refseq_C0120	1	true
+NC_028097.1	refseq	Nodaviridae	Orsay virus	3421	false	refseq_C0121	1	true
+NC_028098.1	refseq	Nodaviridae	Orsay virus	2574	false	refseq_C0122	1	true
+NC_028133.1	refseq	Nodaviridae	Le Blanc nodavirus	3473	false	refseq_C0123	1	true
+NC_028134.1	refseq	Nodaviridae	Le Blanc nodavirus	2937	false	refseq_C0124	1	true
+NC_029645.1	refseq	Caliciviridae	Norovirus GIII	7313	false	refseq_C0125	1	true
+NC_029646.1	refseq	Caliciviridae	Norwalk-like virus	7518	false	refseq_C0126	1	true
+NC_029647.1	refseq	Caliciviridae	Norovirus GIV	7527	false	refseq_C0127	1	true
+NC_029852.1	refseq	Retroviridae	Bovine retrovirus CH15	7470	false	refseq_C0128	1	true
+NC_029853.1	refseq	Retroviridae	Mus musculus mobilized endogenous polytropic provirus	8183	false	refseq_C0129	1	true
+NC_030292.1	refseq	Coronaviridae	Ferret coronavirus	28434	false	refseq_C0130	1	true
+NC_030401.1	refseq	Flaviviridae	Hanko virus	10158	false	refseq_C0131	2	false
+NC_034242.1	refseq	Flaviviridae	Ochlerotatus caspius flavivirus	10370	false	refseq_C0131	2	true
+NC_030793.1	refseq	Caliciviridae	Bovine calicivirus strain Kirklareli	7484	false	refseq_C0132	1	true
+NC_030922.1	refseq	Astroviridae	Mamastrovirus 1	6673	false	refseq_C0133	1	true
+NC_031324.1	refseq	Caliciviridae	Primate norovirus	7753	false	refseq_C0134	2	true
+NC_039897.1	refseq	Caliciviridae	Norovirus GI/Hu/JP/2007/GI.P3_GI.3/Shimizu/KK2866	7745	false	refseq_C0134	2	false
+NC_031326.1	refseq	Retroviridae	Simian retrovirus 8	8126	false	refseq_C0135	1	true
+NC_032088.1	refseq	Flaviviridae	New Mapoon virus	10864	false	refseq_C0136	1	true
+NC_032423.1	refseq	Astroviridae	Bastrovirus/VietNam/Porcine/17489_85	6009	false	refseq_C0137	1	true
+NC_032426.1	refseq	Astroviridae	Bastrovirus-like_virus/VietNam/Bat/17819_21	5547	false	refseq_C0138	1	true
+NC_032484.1	refseq	Astroviridae	Bastrovirus/VietNam/Rat/16715_10	5818	false	refseq_C0139	1	true
+NC_032681.1	refseq	Togaviridae	Tai Forest alphavirus	11379	false	refseq_C0140	1	true
+NC_032730.1	refseq	Coronaviridae	Lucheng Rn rat coronavirus	28763	false	refseq_C0141	1	true
+NC_033081.1	refseq	Caliciviridae	Chicken calicivirus	8176	false	refseq_C0142	1	true
+NC_033723.1	refseq	Flaviviridae	Gadgets Gully virus	10251	false	refseq_C0143	1	true
+NC_033724.1	refseq	Flaviviridae	Kadam virus	10215	false	refseq_C0144	1	true
+NC_033726.1	refseq	Flaviviridae	Saumarez Reef virus	10269	false	refseq_C0145	1	true
+NC_033776.1	refseq	Caliciviridae	Bat sapovirus	7475	false	refseq_C0146	1	true
+NC_033792.1	refseq	Astroviridae	Qinghai Himalayan marmot astrovirus 1	6712	false	refseq_C0147	1	true
+NC_033821.1	refseq	Astroviridae	Qinghai Himalayan marmot astrovirus 2	6640	false	refseq_C0148	1	true
+NC_034007.1	refseq	Flaviviridae	Phnom Penh bat virus	10131	false	refseq_C0149	1	true
+NC_034018.1	refseq	Flaviviridae	Yaounde virus	10293	false	refseq_C0150	1	true
+NC_034151.1	refseq	Flaviviridae	T'Ho virus	10937	false	refseq_C0151	1	true
+NC_034440.1	refseq	Coronaviridae	Bat coronavirus	29642	false	refseq_C0152	2	false
+NC_038294.1	refseq	Coronaviridae	Betacoronavirus England 1	30111	false	refseq_C0152	2	true
+NC_034444.1	refseq	Caliciviridae	Hom-1 vesivirus	8399	false	refseq_C0153	1	true
+NC_034466.1	refseq	Bunyavirales	Fugong virus	3630	true	refseq_C0154	1	true
+NC_034467.1	refseq	Bunyavirales	Fugong virus	6531	true	refseq_C0155	1	true
+NC_034473.1	refseq	Bunyavirales	Fugong virus	1813	true	refseq_C0156	1	true
+NC_034567.1	refseq	Astroviridae	Goose astrovirus	7299	false	refseq_C0157	1	true
+NC_034974.1	refseq	Astroviridae	Mamastrovirus 2	6347	false	refseq_C0158	1	true
+NC_034975.1	refseq	Astroviridae	California sea lion astrovirus 2	3510	false	refseq_C0159	1	true
+NC_035191.1	refseq	Coronaviridae	Wencheng Sm shrew coronavirus	25995	false	refseq_C0160	2	true
+NC_048211.1	refseq	Coronaviridae	Wencheng Sm shrew coronavirus	25984	false	refseq_C0160	2	false
+NC_035471.1	refseq	Astroviridae	Bastrovirus/VietNam/Bat/16715_78	5850	false	refseq_C0161	1	true
+NC_035675.1	refseq	Caliciviridae	Fathead minnow calicivirus	6564	false	refseq_C0162	1	true
+NC_035758.1	refseq	Astroviridae	Bastrovirus 7	6339	false	refseq_C0163	1	true
+NC_036583.1	refseq	Astroviridae	Rodent astrovirus	6861	false	refseq_C0164	1	true
+NC_038298.1	refseq	Bunyavirales	Orthohantavirus bayoui	1958	true	refseq_C0165	1	true
+NC_038300.1	refseq	Bunyavirales	Orthohantavirus bayoui	3677	true	refseq_C0166	1	true
+NC_038368.1	refseq	Astroviridae	Bat astrovirus Hp/Guangxi/LC03/2007	2403	false	refseq_C0167	1	true
+NC_038528.1	refseq	Bunyavirales	Eothenomys miletus hantavirus LX309	3663	true	refseq_C0168	1	true
+NC_038529.1	refseq	Bunyavirales	Eothenomys miletus hantavirus LX309	6538	true	refseq_C0169	1	true
+NC_038530.1	refseq	Bunyavirales	Eothenomys miletus hantavirus LX309	2107	true	refseq_C0170	1	true
+NC_038669.1	refseq	Retroviridae	Puma lentivirus 14	9100	false	refseq_C0171	1	true
+NC_038670.1	refseq	Togaviridae	Cabassou virus	11385	false	refseq_C0172	1	true
+NC_038672.1	refseq	Togaviridae	Mucambo virus	11391	false	refseq_C0173	1	true
+NC_038673.1	refseq	Togaviridae	Pixuna virus	11344	false	refseq_C0174	1	true
+NC_038674.1	refseq	Togaviridae	Rio Negro virus	11494	false	refseq_C0175	1	true
+NC_038675.1	refseq	Togaviridae	Tonate virus	11530	false	refseq_C0176	1	true
+NC_038857.1	refseq	Togaviridae	Mosso das Pedras virus	11465	false	refseq_C0177	1	true
+NC_038858.1	refseq	Retroviridae	Finkel-Biskis-Jinkins murine sarcoma virus	3811	false	refseq_C0178	2	true
+NC_043426.1	refseq	Retroviridae	Kirsten murine sarcoma virus	1329	false	refseq_C0178	2	false
+NC_038922.1	refseq	Retroviridae	Avian sarcoma virus CT10	2428	false	refseq_C0179	1	true
+NC_038923.1	refseq	Retroviridae	Feline sarcoma virus (STRAIN HARDY-ZUCKERMAN 4)	2473	false	refseq_C0180	1	true
+NC_039022.1	refseq	Retroviridae	Puma feline foamy virus	11649	false	refseq_C0181	2	false
+NC_039242.1	refseq	Retroviridae	Feline foamy virus	11700	false	refseq_C0181	2	true
+NC_039023.1	refseq	Retroviridae	Brown greater galago prosimian foamy virus	12118	false	refseq_C0182	1	true
+NC_039026.1	refseq	Retroviridae	Japanese macaque simian foamy virus	12957	false	refseq_C0183	3	false
+NC_039238.1	refseq	Retroviridae	Rhesus macaque simian foamy virus	12983	false	refseq_C0183	3	true
+NC_075434.1	refseq	Retroviridae	Simiispumavirus macfas	12965	false	refseq_C0183	3	false
+NC_039027.1	refseq	Retroviridae	Spider monkey simian foamy virus	12212	false	refseq_C0184	1	true
+NC_039028.1	refseq	Retroviridae	Squirrel monkey simian foamy virus	11684	false	refseq_C0185	1	true
+NC_039029.1	refseq	Retroviridae	Western lowland gorilla simian foamy virus	12258	false	refseq_C0186	1	true
+NC_039030.1	refseq	Retroviridae	White-tufted-ear marmoset simian foamy virus	11744	false	refseq_C0187	2	false
+NC_039031.1	refseq	Retroviridae	Yellow-breasted capuchin simian foamy virus	11764	false	refseq_C0187	2	true
+NC_039085.1	refseq	Retroviridae	Simian foamy virus Pongo pygmaeus pygmaeus	12823	false	refseq_C0188	1	true
+NC_039218.1	refseq	Flaviviridae	Kyasanur Forest disease virus	10376	false	refseq_C0189	1	true
+NC_039219.1	refseq	Flaviviridae	Royal Farm virus	10254	false	refseq_C0190	1	true
+NC_039228.1	refseq	Retroviridae	Koala retrovirus	8431	false	refseq_C0191	1	true
+NC_039475.1	refseq	Caliciviridae	Norovirus GII.17	7556	false	refseq_C0192	1	true
+NC_039476.1	refseq	Caliciviridae	Norovirus GII.2	7536	false	refseq_C0193	2	false
+NC_039477.1	refseq	Caliciviridae	Norovirus GII	7567	false	refseq_C0193	2	true
+NC_040555.1	refseq	Flaviviridae	Lumpfish flavivirus	11336	false	refseq_C0194	1	true
+NC_040589.1	refseq	Flaviviridae	Diatom colony associated ssRNA virus 1	11413	false	refseq_C0195	1	true
+NC_040610.1	refseq	Flaviviridae	Nanay virus	10804	false	refseq_C0196	1	true
+NC_040645.1	refseq	Flaviviridae	Culex Flavi-like virus	10609	false	refseq_C0197	1	true
+NC_040647.1	refseq	Astroviridae	Culex Bastrovirus-like virus	5415	false	refseq_C0198	1	true
+NC_040674.1	refseq	Caliciviridae	Marmot norovirus	6453	false	refseq_C0199	1	true
+NC_040682.1	refseq	Flaviviridae	Culex theileri flavivirus	10280	false	refseq_C0200	1	true
+NC_040776.1	refseq	Flaviviridae	Rocio virus	10794	false	refseq_C0201	1	true
+NC_040788.1	refseq	Flaviviridae	Kampung Karu virus	10311	false	refseq_C0202	1	true
+NC_040876.1	refseq	Caliciviridae	Norovirus GII	7521	false	refseq_C0203	1	true
+NC_043068.1	refseq	Bunyavirales	Orthohantavirus asikkalaense	1458	true	refseq_C0204	1	true
+NC_043075.1	refseq	Bunyavirales	Orthohantavirus nigrorivense	1989	true	refseq_C0205	1	true
+NC_043096.1	refseq	Astroviridae	Bottlenose dolphin astrovirus 1	3990	false	refseq_C0206	1	true
+NC_043097.1	refseq	Astroviridae	Mamastrovirus 11	3179	false	refseq_C0207	1	true
+NC_043098.1	refseq	Astroviridae	Bat astrovirus Tm/Guangxi/LD71/2007	3975	false	refseq_C0208	1	true
+NC_043099.1	refseq	Astroviridae	Mamastrovirus 14	3371	false	refseq_C0209	1	true
+NC_043100.1	refseq	Astroviridae	Bat astrovirus Tm/Guangxi/LD77/2007	3875	false	refseq_C0210	1	true
+NC_043101.1	refseq	Astroviridae	Mamastrovirus 16	3180	false	refseq_C0211	1	true
+NC_043102.1	refseq	Astroviridae	Mamastrovirus 18	5083	false	refseq_C0212	1	true
+NC_043103.1	refseq	Astroviridae	Bat astrovirus Tm/Guangxi/LD38/2007	4241	false	refseq_C0213	1	true
+NC_043110.1	refseq	Flaviviridae	Banzi virus	10182	false	refseq_C0214	1	true
+NC_043111.1	refseq	Flaviviridae	Bukalasa bat virus	1011	false	refseq_C0215	1	true
+NC_043112.1	refseq	Flaviviridae	Carey Island virus	1011	false	refseq_C0216	1	true
+NC_043113.1	refseq	Flaviviridae	Cowbone Ridge virus	1011	false	refseq_C0217	1	true
+NC_043114.1	refseq	Flaviviridae	Dakar bat virus	1011	false	refseq_C0218	1	true
+NC_043115.1	refseq	Flaviviridae	Israel turkey meningoencephalomyelitis virus	1035	false	refseq_C0219	1	true
+NC_043116.1	refseq	Flaviviridae	Koutango virus	1035	false	refseq_C0220	1	true
+NC_043117.1	refseq	Flaviviridae	Sal Vieja virus	1011	false	refseq_C0221	1	true
+NC_043118.1	refseq	Flaviviridae	San Perlita virus	1011	false	refseq_C0222	1	true
+NC_043194.1	refseq	Retroviridae	Walleye epidermal hyperplasia virus 1	3603	false	refseq_C0223	1	true
+NC_043195.1	refseq	Retroviridae	Walleye epidermal hyperplasia virus 2	3741	false	refseq_C0224	1	true
+NC_043196.1	refseq	Retroviridae	Chick syncytial virus	1248	false	refseq_C0225	1	true
+NC_043198.1	refseq	Togaviridae	Trocara virus	1005	false	refseq_C0226	1	true
+NC_043382.1	refseq	Retroviridae	Snyder-Theilen feline sarcoma virus	4901	false	refseq_C0227	1	true
+NC_043402.1	refseq	Togaviridae	Trocara virus	12052	false	refseq_C0228	1	true
+NC_043403.1	refseq	Togaviridae	Una virus	11964	false	refseq_C0229	1	true
+NC_043404.1	refseq	Retroviridae	Avian myeloblastosis virus	1928	false	refseq_C0230	1	true
+NC_043445.1	refseq	Retroviridae	Guenon simian foamy virus	13072	false	refseq_C0231	1	true
+NC_043512.1	refseq	Caliciviridae	Tulane virus	6714	false	refseq_C0232	1	true
+NC_043516.1	refseq	Caliciviridae	Turkey calicivirus	7656	false	refseq_C0233	1	true
+NC_044045.1	refseq	Caliciviridae	Norovirus GII/Hu/JP/2007/GII.P15_GII.15/Sapporo/HK299	7551	false	refseq_C0234	1	true
+NC_044046.1	refseq	Caliciviridae	Norovirus GII/Hu/JP/2011/GII/Yuzawa/Gira2HS	7543	false	refseq_C0235	1	true
+NC_044047.1	refseq	Caliciviridae	Norovirus dog/GVI.1/HKU_Ca026F/2007/HKG	7637	false	refseq_C0236	1	true
+NC_044853.1	refseq	Caliciviridae	Norovirus GI	7677	false	refseq_C0237	1	true
+NC_044854.1	refseq	Caliciviridae	Norovirus GI	7693	false	refseq_C0238	1	true
+NC_044855.1	refseq	Caliciviridae	Norovirus GIV	7419	false	refseq_C0239	1	true
+NC_044856.1	refseq	Caliciviridae	Norovirus GI	7734	false	refseq_C0240	1	true
+NC_044932.1	refseq	Caliciviridae	Norovirus GII	7525	false	refseq_C0241	1	true
+NC_045762.1	refseq	Caliciviridae	Norovirus GIV	7839	false	refseq_C0242	1	true
+NC_046954.1	refseq	Coronaviridae	Rodent coronavirus	31393	false	refseq_C0243	1	true
+NC_046964.1	refseq	Coronaviridae	Alphacoronavirus Bat-CoV/P.kuhlii/Italy/3398-19/2015	28128	false	refseq_C0244	1	true
+NC_046965.1	refseq	Coronaviridae	Canada goose coronavirus	28539	false	refseq_C0245	1	true
+NC_048212.1	refseq	Coronaviridae	Bat coronavirus	28975	false	refseq_C0246	1	true
+NC_048214.1	refseq	Coronaviridae	Duck coronavirus	27754	false	refseq_C0247	1	true
+NC_054003.1	refseq	Coronaviridae	Alphacoronavirus sp.	28170	false	refseq_C0248	1	true
+NC_054004.1	refseq	Coronaviridae	Hipposideros pomona bat coronavirus CHB25	28169	false	refseq_C0249	1	true
+NC_054015.1	refseq	Coronaviridae	Tylonycteris bat coronavirus HKU33	27636	false	refseq_C0250	1	true
+NC_055569.1	refseq	Togaviridae	Caaingua virus	12096	false	refseq_C0251	1	true
+NC_055953.1	refseq	Coronaviridae	Bat alphacoronavirus	29097	false	refseq_C0252	1	true
+NC_074777.1	refseq	Flaviviridae	Phnom Penh bat virus	1011	false	refseq_C0253	1	true
+NC_074778.1	refseq	Flaviviridae	Yaounde virus	1035	false	refseq_C0254	1	true
+NC_075280.1	refseq	Picornaviridae	Picornaviridae sp.	7443	false	refseq_C0255	1	true
+NC_075281.1	refseq	Picornaviridae	grusopivirus A1	7917	false	refseq_C0256	1	true
+NC_075282.1	refseq	Picornaviridae	grusopivirus B1	7104	false	refseq_C0257	1	true
+NC_075411.1	refseq	Caliciviridae	Calicivirus chicken/V0021/Bayern/2004	7908	false	refseq_C0258	1	true
+NC_075425.1	refseq	Picornaviridae	Rosavirus C	8898	false	refseq_C0259	1	true
+NC_075428.1	refseq	Picornaviridae	Canine picornavirus	7618	false	refseq_C0260	1	true
+NC_075445.1	refseq	Picornaviridae	grusopivirus C1	7862	false	refseq_C0261	1	true
+NC_075569.1	refseq	Caliciviridae	Feline calicivirus	7690	false	refseq_C0262	1	true
+NC_075724.1	refseq	Caliciviridae	Sapovirus Hu/GI/Sapporo/MT-2010/1982	7433	false	refseq_C0263	1	true
+NC_075977.1	refseq	Picornaviridae	cardiovirus F1	7890	false	refseq_C0264	1	true
+NC_075980.1	refseq	Picornaviridae	Teschovirus A	6931	false	refseq_C0265	1	true
+NC_075987.1	refseq	Picornaviridae	gruhelivirus A1	7073	false	refseq_C0266	1	true
+NC_075992.1	refseq	Picornaviridae	anativirus B1	8204	false	refseq_C0267	1	true
+NC_075994.1	refseq	Picornaviridae	Potamipivirus A	8532	false	refseq_C0268	1	true
+NC_075995.1	refseq	Picornaviridae	rohelivirus A1	7780	false	refseq_C0269	1	true
+NC_076005.1	refseq	Picornaviridae	pemapivirus B1	9218	false	refseq_C0270	1	true
+NC_076006.1	refseq	Picornaviridae	tropivirus A1	8049	false	refseq_C0271	1	true
+NC_076008.1	refseq	Picornaviridae	Hainan oriental leaf-toed gecko picornavirus	7969	false	refseq_C0272	1	true
+NC_076009.1	refseq	Picornaviridae	fipivirus E1	8173	false	refseq_C0273	1	true
+NC_076011.1	refseq	Picornaviridae	fipivirus C1	7790	false	refseq_C0274	1	true
+NC_076012.1	refseq	Picornaviridae	fipivirus A1	7965	false	refseq_C0275	1	true
+NC_076013.1	refseq	Picornaviridae	fipivirus B1	7871	false	refseq_C0276	1	true
+NC_076014.1	refseq	Picornaviridae	Wenling triplecross lizardfish picornavirus	8591	false	refseq_C0277	1	true
+NC_076015.1	refseq	Picornaviridae	fipivirus D1	8084	false	refseq_C0278	1	true
+NC_076017.1	refseq	Picornaviridae	Marmot mosavirus	8170	false	refseq_C0279	1	true
+NC_076037.1	refseq	Picornaviridae	Bovine picornavirus	7570	false	refseq_C0280	1	true
+NC_076038.1	refseq	Picornaviridae	Bovine picornavirus	7625	false	refseq_C0281	1	true
+NC_076039.1	refseq	Picornaviridae	Bat picornavirus	6624	false	refseq_C0282	1	true
+NC_076040.1	refseq	Picornaviridae	Bat picornavirus	7048	false	refseq_C0283	1	true
+NC_076099.1	refseq	Picornaviridae	cardiovirus E1	8122	false	refseq_C0284	1	true
+NC_076217.1	refseq	Picornaviridae	fipivirus F1	8332	false	refseq_C0285	1	true
+NC_076218.1	refseq	Picornaviridae	tropivirus B1	8343	false	refseq_C0286	1	true
+NC_076219.1	refseq	Picornaviridae	rajidapivirus A1	7947	false	refseq_C0287	1	true
+NC_076220.1	refseq	Picornaviridae	limnipivirus D1	7504	false	refseq_C0288	1	true
+NC_076221.1	refseq	Picornaviridae	Guangdong fish caecilians picornavirus	8318	false	refseq_C0289	1	true
+NC_076245.1	refseq	Picornaviridae	Zebrafish picornavirus 1	8298	false	refseq_C0290	1	true
+NC_076404.1	refseq	Picornaviridae	marsupivirus A1	6821	false	refseq_C0291	1	true
+NC_076508.1	refseq	Picornaviridae	pemapivirus A1	9196	false	refseq_C0292	1	true
+NC_076629.1	refseq	Coronaviridae	Bat alphacoronavirus	28045	false	refseq_C0293	1	true
+NC_076684.1	refseq	Coronaviridae	Alphacoronavirus sp.	27435	false	refseq_C0294	1	true
+NC_076685.1	refseq	Coronaviridae	Alphacoronavirus sp.	28009	false	refseq_C0295	1	true
+NC_076947.1	refseq	Retroviridae	Equine infectious anemia virus	8359	false	refseq_C0296	1	true
+NC_077220.1	refseq	Picornaviridae	Ovine picornavirus	7557	false	refseq_C0297	1	true
+NC_077666.1	refseq	Bunyavirales	Orthohantavirus puumalaense	3682	true	refseq_C0298	1	true
+NC_077667.1	refseq	Bunyavirales	Orthohantavirus puumalaense	6550	true	refseq_C0299	1	true
+NC_077668.1	refseq	Bunyavirales	Orthohantavirus puumalaense	1784	true	refseq_C0300	1	true
+NC_077669.1	refseq	Bunyavirales	Orthohantavirus sinnombreense	2060	true	refseq_C0301	1	true
+NC_077670.1	refseq	Bunyavirales	Orthohantavirus sinnombreense	3696	true	refseq_C0302	1	true
+NC_077671.1	refseq	Bunyavirales	Orthohantavirus sinnombreense	6562	true	refseq_C0303	1	true
+NC_077948.1	refseq	Bunyavirales	Shark River virus	1019	true	refseq_C0304	1	true
+NC_077970.1	refseq	Bunyavirales	Shokwe virus	4427	true	refseq_C0305	1	true
+NC_077972.1	refseq	Bunyavirales	Shokwe virus	6858	true	refseq_C0306	1	true
+NC_077973.1	refseq	Bunyavirales	Apeu virus	4534	true	refseq_C0307	1	true
+NC_077974.1	refseq	Bunyavirales	Apeu virus	6935	true	refseq_C0308	1	true
+NC_077975.1	refseq	Bunyavirales	Apeu virus	1082	true	refseq_C0309	1	true
+NC_077979.1	refseq	Bunyavirales	Nepuyo virus	6960	true	refseq_C0310	1	true
+NC_077980.1	refseq	Bunyavirales	Nepuyo virus	1003	true	refseq_C0311	1	true
+NC_077981.1	refseq	Bunyavirales	Nepuyo virus	4556	true	refseq_C0312	1	true
+NC_077982.1	refseq	Bunyavirales	Bruconha virus	1034	true	refseq_C0313	1	true
+NC_077983.1	refseq	Bunyavirales	Bruconha virus	7006	true	refseq_C0314	1	true
+NC_077984.1	refseq	Bunyavirales	Bruconha virus	4685	true	refseq_C0315	1	true
+NC_077986.1	refseq	Bunyavirales	Anopheles A virus	6881	true	refseq_C0316	1	true
+NC_077987.1	refseq	Bunyavirales	Anopheles A virus	4337	true	refseq_C0317	1	true
+NC_078003.1	refseq	Bunyavirales	Northway virus	6862	true	refseq_C0318	1	true
+NC_078005.1	refseq	Bunyavirales	Northway virus	4540	true	refseq_C0319	1	true
+NC_078600.1	refseq	Orthomyxoviridae	Thailand tick thogotovirus	2306	true	refseq_C0320	1	true
+NC_078601.1	refseq	Orthomyxoviridae	Thailand tick thogotovirus	1480	true	refseq_C0321	1	true
+NC_078605.1	refseq	Orthomyxoviridae	Pilchard orthomyxovirus	1980	true	refseq_C0322	1	true
+NC_078606.1	refseq	Orthomyxoviridae	Pilchard orthomyxovirus	1022	true	refseq_C0323	1	true
+NC_078607.1	refseq	Orthomyxoviridae	Pilchard orthomyxovirus	2281	true	refseq_C0324	1	true
+NC_078608.1	refseq	Orthomyxoviridae	Pilchard orthomyxovirus	2117	true	refseq_C0325	1	true
+NC_078610.1	refseq	Orthomyxoviridae	Pilchard orthomyxovirus	2115	true	refseq_C0326	1	true
+NC_078611.1	refseq	Orthomyxoviridae	Pilchard orthomyxovirus	2172	true	refseq_C0327	1	true
+NC_078612.1	refseq	Orthomyxoviridae	Pilchard orthomyxovirus	1496	true	refseq_C0328	1	true
+NC_078640.1	refseq	Orthomyxoviridae	Tyulek (Tjuloc) virus	1613	true	refseq_C0329	1	true
+NC_078641.1	refseq	Orthomyxoviridae	Tyulek (Tjuloc) virus	2387	true	refseq_C0330	1	true
+NC_078644.1	refseq	Orthomyxoviridae	Tyulek (Tjuloc) virus	2414	true	refseq_C0331	1	true
+NC_078645.1	refseq	Orthomyxoviridae	Tyulek (Tjuloc) virus	2409	true	refseq_C0332	1	true
+NC_078646.1	refseq	Orthomyxoviridae	Tyulek (Tjuloc) virus	1710	true	refseq_C0333	1	true
+NC_078649.1	refseq	Orthomyxoviridae	Upolu virus	2385	true	refseq_C0334	1	true
+NC_078651.1	refseq	Orthomyxoviridae	Upolu virus	2245	true	refseq_C0335	1	true
+NC_078652.1	refseq	Orthomyxoviridae	Upolu virus	1635	true	refseq_C0336	1	true
+NC_078653.1	refseq	Orthomyxoviridae	Upolu virus	1984	true	refseq_C0337	1	true
+NC_078654.1	refseq	Orthomyxoviridae	Upolu virus	1542	true	refseq_C0338	1	true
+NC_078728.1	refseq	Orthomyxoviridae	Araguari virus	1741	true	refseq_C0339	1	true
+NC_078729.1	refseq	Orthomyxoviridae	Araguari virus	1622	true	refseq_C0340	1	true
+NC_078730.1	refseq	Orthomyxoviridae	Araguari virus	2372	true	refseq_C0341	1	true
+NC_078731.1	refseq	Orthomyxoviridae	Araguari virus	2405	true	refseq_C0342	1	true
+NC_078733.1	refseq	Orthomyxoviridae	Araguari virus	2404	true	refseq_C0343	1	true
+NC_078768.1	refseq	Orthomyxoviridae	Sinu virus	2000	true	refseq_C0344	1	true
+NC_078769.1	refseq	Orthomyxoviridae	Sinu virus	1561	true	refseq_C0345	1	true
+NC_078770.1	refseq	Orthomyxoviridae	Sinu virus	1662	true	refseq_C0346	1	true
+NC_078771.1	refseq	Orthomyxoviridae	Sinu virus	2376	true	refseq_C0347	1	true
+NC_078772.1	refseq	Orthomyxoviridae	Sinu virus	1009	true	refseq_C0348	1	true
+NC_078773.1	refseq	Orthomyxoviridae	Sinu virus	2225	true	refseq_C0349	1	true
+NC_115726.1	refseq	Rhabdoviridae	Guadeloupe Culex rhabdovirus	14405	true	refseq_C0350	1	true
+NC_115778.1	refseq	Paramyxoviridae	Jeilongvirus pajuense	19716	true	refseq_C0351	1	true
+NC_115912.1	refseq	Rhabdoviridae	Primus virus	12194	true	refseq_C0352	1	true
+NC_116595.1	refseq	Paramyxoviridae	Parahenipavirus daeryongense	19471	true	refseq_C0353	1	true
+NC_116736.1	refseq	Paramyxoviridae	Porcine morbillivirus	15665	true	refseq_C0354	1	true
+NC_116742.1	refseq	Paramyxoviridae	Myotis bat morbillivirus	15720	true	refseq_C0355	1	true
+NC_116853.1	refseq	Paramyxoviridae	Wenzhou Rattus norvegicus jeilongvirus 1	19168	true	refseq_C0356	1	true
+NC_116854.1	refseq	Paramyxoviridae	Jingmen Miniopterus schreibersii paramyxovirus 1	17673	true	refseq_C0357	1	true
+NC_116856.1	refseq	Paramyxoviridae	Wufeng Rattus nitidus jeilongvirus 1	18686	true	refseq_C0358	1	true
+NC_116861.1	refseq	Paramyxoviridae	Wenzhou Apodemus agrarius henipavirus 1	18309	true	refseq_C0359	1	true
+NC_116974.1	refseq	Rhabdoviridae	Strawberry virus 2	12956	true	refseq_C0360	1	true
+NC_116975.1	refseq	Rhabdoviridae	Strawberry virus 3	14433	true	refseq_C0361	1	true
+NC_117091.1	refseq	Paramyxoviridae	Jingmen Crocidura shantungensis henipavirus 1	18535	true	refseq_C0362	1	true
+NC_117093.1	refseq	Paramyxoviridae	Wufeng Chodsigoa smithii henipavirus 1	18443	true	refseq_C0363	1	true
+NC_117099.1	refseq	Paramyxoviridae	Wenzhou Myotis davidii paramyxovirus 1	15887	true	refseq_C0364	1	true
+NC_117100.1	refseq	Paramyxoviridae	Wenzhou Myotis laniger paramyxovirus 2	15904	true	refseq_C0365	1	true
+NC_117101.1	refseq	Paramyxoviridae	Wufeng Myotis altarium paramyxovirus 1	18118	true	refseq_C0366	1	true
+NC_117102.1	refseq	Paramyxoviridae	Jingmen Myotis davidii paramyxovirus 1	17186	true	refseq_C0367	1	true
+NC_117103.1	refseq	Paramyxoviridae	Wufeng Apodemus chevrieri jeilongvirus 1	19625	true	refseq_C0368	1	true
+NC_117104.1	refseq	Paramyxoviridae	Wenzhou Rattus losea jeilongvirus 2	18077	true	refseq_C0369	1	true
+NC_117105.1	refseq	Paramyxoviridae	Wufeng Typhlomys cinereus jeilongvirus 1	19114	true	refseq_C0370	1	true
+NC_117166.1	refseq	Paramyxoviridae	Meliandou praomys virus	17190	true	refseq_C0371	1	true
+NC_117168.1	refseq	Paramyxoviridae	denalis virus	16218	true	refseq_C0372	1	true
+NC_117169.1	refseq	Paramyxoviridae	denestis virus	16350	true	refseq_C0373	1	true
+NC_117170.1	refseq	Paramyxoviridae	denwin virus	19746	true	refseq_C0374	1	true
+NC_117171.1	refseq	Paramyxoviridae	meleucus virus	16067	true	refseq_C0375	1	true
+NC_117172.1	refseq	Paramyxoviridae	melian virus	19944	true	refseq_C0376	1	true
+NC_117182.1	refseq	Rhabdoviridae	Alphacytorhabdovirus sambuci	12622	true	refseq_C0377	1	true
+NC_117252.1	refseq	Rhabdoviridae	Hyptis latent virus	13765	true	refseq_C0378	1	true
+NC_117253.1	refseq	Rhabdoviridae	Cereal chlorotic mottle virus	13800	true	refseq_C0379	1	true
+NC_117268.1	refseq	Paramyxoviridae	Langya virus	18402	true	refseq_C0380	1	true
+NC_117269.1	refseq	Rhabdoviridae	rudbeckia virus 1	12502	true	refseq_C0381	1	true
+NC_117321.1	refseq	Rhabdoviridae	Alphacytorhabdovirus alphapogostemi	12913	true	refseq_C0382	1	true
+NC_117394.1	refseq	Rhabdoviridae	Alphacytorhabdovirus ribes	12863	true	refseq_C0383	1	true
+NC_117410.1	refseq	Rhabdoviridae	Daphne virus 1	13206	true	refseq_C0384	1	true
+NC_118823.1	refseq	Bunyavirales	Carrizal virus	3675	true	refseq_C0385	1	true
+NC_118824.1	refseq	Bunyavirales	Carrizal virus	1980	true	refseq_C0386	1	true
+NC_131367.1	refseq	Paramyxoviridae	Wufeng Rhinolophus pearsonii paramyxovirus 1	16128	true	refseq_C0387	1	true
+NC_131399.1	refseq	Paramyxoviridae	Meliandou mastomys virus	17286	true	refseq_C0388	1	true
+NC_131521.1	refseq	Bunyavirales	Carrizal virus	6517	true	refseq_C0389	1	true
+NC_139365.1	refseq	Rhabdoviridae	Picea virus 1	11193	true	refseq_C0390	1	true
+NC_139366.1	refseq	Rhabdoviridae	Pinus banksiana virus 1	11276	true	refseq_C0391	1	true
+NC_139367.1	refseq	Rhabdoviridae	Taxus virus 1	11174	true	refseq_C0392	1	true
+NC_139368.1	refseq	Rhabdoviridae	Tomato alphanucleorhabdovirus 1	13405	true	refseq_C0393	1	true
+NC_139369.1	refseq	Rhabdoviridae	Alphanucleorhabdovirus xinjianensis	13358	true	refseq_C0394	1	true
+NC_139370.1	refseq	Rhabdoviridae	Torreya virus 1	10253	true	refseq_C0395	1	true
+NC_139371.1	refseq	Rhabdoviridae	Tomato betanucleorhabdovirus 1	13426	true	refseq_C0396	1	true
+NC_139372.1	refseq	Rhabdoviridae	Tomato betanucleorhabdovirus 2	13423	true	refseq_C0397	1	true
+NC_139373.1	refseq	Rhabdoviridae	Betanucleorhabdovirus picridis	15193	true	refseq_C0398	1	true
+NC_139374.1	refseq	Rhabdoviridae	Betanucleorhabdovirus taraxi	13736	true	refseq_C0399	1	true
+NC_139375.1	refseq	Rhabdoviridae	Soybean blotchy mosaic virus	13425	true	refseq_C0400	1	true
+NC_139376.1	refseq	Rhabdoviridae	Pastinaca cytorhabdovirus 1	13072	true	refseq_C0401	1	true
+NC_139377.1	refseq	Rhabdoviridae	Taraxacum cytorhabdovirus 1	13718	true	refseq_C0402	1	true
+NC_139378.1	refseq	Rhabdoviridae	Cytorhabdovirus sp. 'tiliae'	14152	true	refseq_C0403	1	true
+NC_139379.1	refseq	Rhabdoviridae	Medicago sativa virus 1	14041	true	refseq_C0404	1	true
+NC_140555.1	refseq	Paramyxoviridae	Ochotona cansus jeilongvirus	19062	true	refseq_C0405	1	true
+NC_140556.1	refseq	Paramyxoviridae	Eothenomys eva jeilongvirus	19137	true	refseq_C0406	1	true
+NC_140757.1	refseq	Paramyxoviridae	Denotus virus	20502	true	refseq_C0407	1	true
+NC_140758.1	refseq	Paramyxoviridae	Phyllostomus bat morbillivirus	15714	true	refseq_C0408	1	true
+NC_140759.1	refseq	Paramyxoviridae	Piparella virus	16146	true	refseq_C0409	1	true
+NC_140760.1	refseq	Paramyxoviridae	Plecomyxo virus	16038	true	refseq_C0410	1	true
+NC_140761.1	refseq	Paramyxoviridae	Ninorex virus	19158	true	refseq_C0411	1	true
+NC_140762.1	refseq	Paramyxoviridae	Parajeilongvirus brazilense	17482	true	refseq_C0412	1	true
+NC_140763.1	refseq	Paramyxoviridae	Carollia bat paramyxovirus	19801	true	refseq_C0413	1	true
+NC_140764.1	refseq	Paramyxoviridae	Boe paramyxovirus	17735	true	refseq_C0414	1	true
+NC_140765.1	refseq	Paramyxoviridae	Parajeilongvirus diaemi	19381	true	refseq_C0415	1	true
+NC_140766.1	refseq	Paramyxoviridae	Bat paramyxovirus	18095	true	refseq_C0416	1	true
+NC_140767.1	refseq	Paramyxoviridae	Hipposideros bat paramyxovirus	17402	true	refseq_C0417	1	true
+NC_143370.1	refseq	Rhabdoviridae	Yanbian Rhabd tick virus 3	11160	true	refseq_C0418	1	true
+NC_143371.1	refseq	Rhabdoviridae	Xiangshan rhabdo-like virus 3	11774	true	refseq_C0419	1	true
+NC_143372.1	refseq	Rhabdoviridae	Xiangshan rhabdo-like virus 4	12645	true	refseq_C0420	1	true
+NC_143373.1	refseq	Rhabdoviridae	Apis rhabdovirus 5	13395	true	refseq_C0421	1	true
+NC_143374.1	refseq	Rhabdoviridae	Apis rhabdovirus 4	13489	true	refseq_C0422	1	true
+NC_143375.1	refseq	Rhabdoviridae	Fuyun tick rhabdovirus	13658	true	refseq_C0423	1	true
+NC_143376.1	refseq	Rhabdoviridae	Atrato Rhabdo-like virus 3	12076	true	refseq_C0424	1	true
+NC_143377.1	refseq	Rhabdoviridae	San Gabriel mononegavirus	12620	true	refseq_C0425	1	true
+NC_143378.1	refseq	Rhabdoviridae	Elisy virus	13816	true	refseq_C0426	1	true
+NC_143379.1	refseq	Rhabdoviridae	Stang virus	13637	true	refseq_C0427	1	true
+NC_143380.1	refseq	Rhabdoviridae	Wuhan Mosquito Virus 9	13668	true	refseq_C0428	1	true
+NC_143381.1	refseq	Rhabdoviridae	Chemarfal virus 1	16057	true	refseq_C0429	1	true
+NC_143382.1	refseq	Rhabdoviridae	Metorhabdovirus 2	13061	true	refseq_C0430	1	true
+NC_143383.1	refseq	Rhabdoviridae	Sphaeridiorhabdovirus 1	12317	true	refseq_C0431	1	true
