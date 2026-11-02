@@ -1,9 +1,9 @@
 # Viral RNA regulatory-motif discovery (rna_motif_v2)
 
-**Status (2026-11-02, preliminary): pipeline passes its calibration gates and, post hoc, recovers a conserved ~22-nt 3'-UTR element (CCGAGTAGGATCGAGGGTACAG; 25 genomes, astro-, corona-, caliciviruses) that is consistent with the published s2m element. Family-level replication shows real cross-family signal (chain nulls give none); `stat-check` done, 4 open caveats below.**
+**Final (2026-11-02): 148 candidate k-mers are significant in all three sampling/clustering variants (114 last-300 nt, 29 first-300 nt, 5 whole genome); the strongest is a conserved 3'-UTR element identical to the published s2m (Rfam RF00164). Everything else is a statistical candidate, not a validated element; q-values are not literal error rates.**
 
 ## Abstract
-Question: which short RNA sequence patterns (k=6-8) are over-represented in viral RNA beyond what each genome's own order-2 composition predicts, counting independent sequence clusters rather than records? Approach: NCBI RefSeq pull + QC, similarity clustering, per-sequence Markov-2 background with exact Poisson-binomial tails, BH-FDR within region (whole genome / first 300 nt / last 300 nt). Result: calibration gates pass (1/20 null datasets with any BH hit; planted 8-mer recovered at rank 1, q~1e-134); naive record counting inflates hits 9.6x on a redundant set. On real data 76 whole-genome and ~740-880 terminal-region k-mers are significant, log2 enrichment >=1 and robust to an order-1 background. These are candidates, not functional elements; coding constraint and genus-level homology are not removed (see limitations).
+Question: which short RNA sequence patterns (k=6-8) are over-represented in viral RNA beyond what each genome's own order-2 composition predicts, counting independent sequence clusters rather than records? Approach: NCBI RefSeq pull + QC, similarity clustering, per-sequence Markov-2 background with exact Poisson-binomial tails, BH-FDR within region (whole genome / first 300 nt / last 300 nt). Result: calibration gates pass (1/20 null datasets with any BH hit; planted 8-mer recovered at rank 1, q~1e-134); naive record counting inflates hits 9.6x on a redundant set. On real data 76 whole-genome and ~740-880 terminal-region k-mers are significant, log2 enrichment >=1 and robust to an order-1 background. Of these, 148 are significant in all three variants (main, coarse clustering, spread sampling; `results/robust_candidates.tsv`), led by the s2m core (q~1e-31). These are candidates, not functional elements; coding constraint and genus-level homology are not removed (see limitations).
 
 ## Workflow (live; ticked = done)
 - [x] 0. Papers read and digested ([@bernett2024leakage], [@razumova2025utr], [@jin2025mrna]); rules approved: `reference/golden_standard/SUMMARY.md`
@@ -15,7 +15,8 @@ Question: which short RNA sequence patterns (k=6-8) are over-represented in vira
 - [x] 6. Real-data analysis (`src/analyze.py`)
 - [x] 7. `stat-check` audit + family-level replication (`src/robustness.py`)
 - [x] 8. Follow-up of the recurring 3'-end motif: extended element, consistent with s2m (literature check below)
-- [ ] 9. Remaining: sequence-level check against an s2m reference alignment (Rfam), genus-level clustering, structure (RNAfold absent)
+- [x] 9. s2m verified against Rfam RF00164; local-background, coarse-clustering and spread-sampling sensitivity; robust list; RNAfold check (`src/structure.py`)
+- [x] 10. Token-use report ([Resource use](#resource-use)); final report
 
 ## Data
 469 RefSeq records after QC (12 families, 1000-35,000 nt) + 96 GenBank strains (SARS-CoV-2, Dengue 2, HCV; redundancy demo only). 55 of 620 fetched records dropped (all: >1% non-ACGT). Clustering: RefSeq collapses little (about 1 cluster per record, largest 5), demo collapses strongly (21 -> 1, 75 -> 15 clusters). Only cluster representatives are counted [@bernett2024leakage Q4].
@@ -85,17 +86,22 @@ Coarser clustering removes ~75-85% of terminal hits (Coronaviridae collapses to 
 | Sampling | deviates | RefSeq records taken in esearch order (first 40 per family), not random: selection bias possible |
 | Thresholds (log2>=1, obs>=3, cluster J>=0.10) | no standard covers | project defaults, flagged for user decision |
 
+**Final robust candidates** (`results/robust_candidates.tsv`): k-mers with q<0.05, log2 enrichment >=1, obs>=3 in the main run AND the coarse-clustering run AND the spread-sampled run: 148 (last 300 nt 114, first 300 nt 29, whole genome 5). Top of the list is the s2m core (CGAGGGTA, TCGAGGGT, AGGGTACA, GAGGGTAC; q 5e-31 to 9e-24 in the main run, 2e-3 to 2e-2 under coarse clustering where Coronaviridae has one representative). Neighbours GGCCACGC (Astroviridae 17, Coronaviridae 8, Caliciviridae 1) and ACGCCGAG (Astroviridae 16) occur in the same genomes and probably extend the stem flanking the core (not verified). TTTTCTTA in the first 300 nt (Paramyxoviridae 26, Rhabdoviridae 9) fits the conserved gene-start/leader signals of negative-strand viruses, but I did not check that against the literature. The AU-rich 3' k-mers (TTTTAA, TTTTAAT) are also robust to resampling but weak under a local background (see above).
+
+**Structure check** (`src/structure.py`, ViennaRNA 2.7.2; 60-nt windows centred on GAGGGTAC, 26 genomes, 200 dinucleotide shuffles each): windows fold with MFE about -13 kcal/mol, but not more stably than shuffled sequence (median z=+0.42, 0/26 with empirical p<0.05). So single-sequence MFE gives no support for a stable fold. This is a weak test (MFE z-scores are insensitive for short conserved hairpins, and the real s2m structure is a conserved stem-loop supported by covariation in Rfam), so it neither confirms nor refutes the element.
+
 ![redundancy](figures/g2_redundancy.png)
 
 ## Discussion and limitations
 - **Candidate vs validated:** a validated element has experimental support (reporter/SHAPE/mutagenesis, conservation with covariation); our candidates are statistical over-representation relative to a composition model. They may reflect phylogeny, coding/codon constraints or structure, not function [@razumova2025utr s4.4].
 - The thousands of terminal-region hits are far above what a clean motif signal would give; the background is fitted on the whole genome, so any positional composition difference (UTR vs ORF start, poly-U tracts) counts as enrichment. Treat whole-genome hits as coding-confounded.
 - Clusters at ~85-90% identity: genus-level homology (60-85% identity) is not removed, so effective n is nearer the number of genera/families than 469. The recurring 3'-end family could be one clade's conserved sequence.
-- Not done: structure (RNAfold not installed). Genus-level clustering and spread sampling done (see sensitivity table).
+- Genus-level clustering and spread sampling done: ~55-65% of terminal hits reproduce under resampling, ~15-30% survive coarse clustering; only the robust list is reported as the headline. Structure: MFE-only check, no covariation analysis.
+- Thresholds (log2>=1, obs>=3, Jaccard) and the choice of "robust = all three variants" are my defaults; no golden standard covers them.
 - Falsifier of the 3'-end family: absence in independent same-family genomes held out of discovery, or disappearance after genus-level clustering.
 
 ## Next steps
-1) RNAfold structure of the s2m windows (needs install); 2) intersect hits across all three runs for a final robust list structure of the s2m windows.
+Experimental follow-up of the non-s2m robust candidates; covariation (e.g. R-scape/Infernal) on the s2m-neighbour k-mers; genus-balanced sampling from more families; a host-RNA or non-viral negative set to separate viral-specific from general UTR signal.
 
 ## Reproducibility
 ```
@@ -105,6 +111,9 @@ python3 src/run_pipeline.py --out results                         # 6 s
 python3 src/gates.py --out results --n-null 20                    # 110 s
 python3 src/analyze.py                                            # 10 s
 python3 src/robustness.py                                         # ~1 min
+python3 src/local_bg.py; python3 src/structure.py                 # ~1 min
+# sensitivity: cluster.py --qc data/qc_coarse --jaccard 0.005; fetch_qc.py --out data_spread --refseq-pool 400; run_pipeline.py on each
+python3 ~/.claude/skills/token-report/token_report.py
 pytest tests/
 ```
 Seed 42; Python 3.12, numpy/scipy/pandas; total compute well under 5 min on 10 cores.
@@ -112,7 +121,7 @@ Seed 42; Python 3.12, numpy/scipy/pandas; total compute well under 5 min on 10 c
 ## Resource use
 ![token usage](figures/token_usage.png)
 
-Tokens by API, model and problem type (`results/token_usage.tsv`; made with the global `token-report` skill, problem types are rule-based). Most output tokens went to complex-code delegation (Sonnet via API) and routine code (DeepSeek flash); the Claude Code session itself spent most input on planning and reporting. Cache reads (~9.6 M) are not plotted. Anthropic-API spend: $1.18; DeepSeek has no price table.
+Tokens by API, model and problem type (`results/token_usage.tsv`; made with the global `token-report` skill, problem types are rule-based). Most output tokens went to complex-code delegation (Sonnet via API) and routine code (DeepSeek flash); the Claude Code session itself spent most input on planning and reporting. Cache reads (~10.5 M) are not plotted. Anthropic-API spend: $1.18; DeepSeek has no price table.
 
 ## References
 `reference/literature/library.bib`: [@bernett2024leakage], [@razumova2025utr], [@jin2025mrna], [@keep2023s2m], [@lulla2021sl2].
@@ -123,4 +132,5 @@ Tokens by API, model and problem type (`results/token_usage.tsv`; made with the 
 - 2026-11-02: stat-check, family-level replication, 3'-end element consistent with s2m.
 - 2026-11-02: s2m verified vs Rfam RF00164; local-background test of AU-rich 3' k-mers (weak, <2x).
 - 2026-11-02: genus-level clustering and spread-sampling sensitivity runs.
+- 2026-11-02: robust list (148), RNAfold check, token report, final README.
 </details>
