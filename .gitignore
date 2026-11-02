@@ -5,3 +5,8 @@ __pycache__/
 data/raw/
 results/motifs_all.tsv
 results/motifs_order1.tsv
+data_spread/raw/
+results_*/motifs_all.tsv
+data_spread/
+data/qc_coarse/
+results_*/motifs_all.tsv

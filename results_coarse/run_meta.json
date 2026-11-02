@@ -1,0 +1,24 @@
+{
+ "n_seqs": 202,
+ "families": [
+  "Astroviridae",
+  "Bunyavirales",
+  "Caliciviridae",
+  "Coronaviridae",
+  "Flaviviridae",
+  "Nodaviridae",
+  "Orthomyxoviridae",
+  "Paramyxoviridae",
+  "Picornaviridae",
+  "Retroviridae",
+  "Rhabdoviridae",
+  "Togaviridae"
+ ],
+ "ks": [
+  6,
+  7,
+  8
+ ],
+ "seed": 42,
+ "elapsed_s": 2.4
+}

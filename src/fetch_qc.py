@@ -377,8 +377,13 @@ def _fetch_refseq(
     client: EutilsClient,
     families: Sequence[str],
     per_family: int,
+    pool: int = 0,
+    seed: int = 42,
 ) -> tuple[list[Record], list[str], list[dict[str, Any]]]:
-    """Fetch first per_family RefSeq RNA records per family; output records, raw text, queries."""
+    """Fetch per_family RefSeq RNA records per family; output records, raw text, queries.
+
+    pool=0: first per_family hits (esearch order). pool>per_family: esearch `pool` hits, then spread
+    selection via _every_kth (removes esearch-order bias)."""
     records: list[Record] = []
     raw_texts: list[str] = []
     queries: list[dict[str, Any]] = []
@@ -389,9 +394,11 @@ def _fetch_refseq(
             "AND 1000:35000[SLEN]"
         )
         queries.append(
-            {"set": "refseq", "family": family, "retmax": per_family, "term": term}
+            {"set": "refseq", "family": family, "retmax": max(pool, per_family), "term": term}
         )
-        ids = _esearch(client, term, per_family)
+        ids = _esearch(client, term, max(pool, per_family))
+        if pool > per_family:
+            ids = _every_kth(ids, per_family, seed)
         LOGGER.info("esearch refseq family=%s found=%d requested=%d", family, len(ids), per_family)
         family_records, family_raw = _fetch_ids(client, ids, family, "refseq")
         records.extend(family_records)
@@ -642,6 +649,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--out", type=Path, default=Path("data"), help="Output data directory")
     parser.add_argument("--per-family", type=int, default=40, help="RefSeq records per family")
     parser.add_argument("--demo-n", type=int, default=50, help="Demo records per organism")
+    parser.add_argument("--refseq-pool", type=int, default=0, help="esearch pool per family; if > per-family, spread-sample per-family from it")
     parser.add_argument(
         "--dry",
         type=int,
@@ -694,7 +702,9 @@ def main(argv: Sequence[str] | None = None) -> int:
     dbbuild = _fetch_dbbuild(client)
     queries: list[dict[str, Any]] = []
 
-    refseq_records, refseq_raw, refseq_queries = _fetch_refseq(client, families, per_family)
+    refseq_records, refseq_raw, refseq_queries = _fetch_refseq(
+        client, families, per_family, args.refseq_pool, args.seed
+    )
     queries.extend(refseq_queries)
     _write_raw_fasta(raw_dir / "refseq.fa", refseq_raw)
 
