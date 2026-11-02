@@ -1,0 +1,4 @@
+reference/literature/pdfs/
+reference/literature/digest/*.err
+logs/
+__pycache__/
