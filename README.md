@@ -109,6 +109,11 @@ pytest tests/
 ```
 Seed 42; Python 3.12, numpy/scipy/pandas; total compute well under 5 min on 10 cores.
 
+## Resource use
+![token usage](figures/token_usage.png)
+
+Tokens by API, model and problem type (`results/token_usage.tsv`; made with the global `token-report` skill, problem types are rule-based). Most output tokens went to complex-code delegation (Sonnet via API) and routine code (DeepSeek flash); the Claude Code session itself spent most input on planning and reporting. Cache reads (~9.6 M) are not plotted. Anthropic-API spend: $1.18; DeepSeek has no price table.
+
 ## References
 `reference/literature/library.bib`: [@bernett2024leakage], [@razumova2025utr], [@jin2025mrna], [@keep2023s2m], [@lulla2021sl2].
 
