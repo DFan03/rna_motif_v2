@@ -11,3 +11,5 @@ data_spread/
 data/qc_coarse/
 results_*/motifs_all.tsv
 data_host/
+reference/rfam_full/
+data_heldout/

@@ -4,5 +4,7 @@ Decisions: SUMMARY.md approved by user. Opus review forced methods v2: order-2 M
 Done: T1 fetch/QC (565 kept: 469 refseq 12 families + 96 demo; 55 dropped nonstandard), T2 cluster, T3 motif.py (12 tests pass), run_pipeline (6 s), gates (G1 pass 1/20, G2 inflation 9.6x, G3 rank1), analyze.py (order-1 sensitivity, known elements, figs).
 Results: results/{summary_by_region,top_candidates,known_elements}.tsv, gates.json; figures/volcano.png, g2_redundancy.png.
 
-Open: none. Project FINISHED 2026-11-02 (incl. covariation + host control): robust list (148) results/robust_candidates.tsv, RNAfold src/structure.py, token report in README.
-Next: await user (optional: covariation analysis, host-RNA negative set).
+REVIEW 2026-11-02 (user): README did not answer TASK.md questions; PI review done: changes/motif-discovery/handoff/PI_review.md (Opus API, request msg_011CgdNWBE9K83iqqapSDvHe).
+Open: (1) merge k-mers->motif groups, (2) Fisher viral-vs-host w/ CI, (3) per-species collapse, (4) Rfam/Infernal panel (conda env rnatools installing, logs/conda_infernal.log), (5) held-out genomes, (6) README REWRITE answer-first per PI plan; fix inconsistencies (469 vs 432, 'preliminary', covariation limitation).
+Next: run (1)(2)(3)(5), then rewrite README (TASK table first screen, evidence ladder L0-L5), re-run pi-review once, rerun token-report, push.
+DONE 2026-11-02: (1) motif groups (27) src/final_groups.py; (2) Fisher host test; (4) Rfam cmscan on 864 windows -> results/rfam_panel.tsv (143 windows hit; s2m 25 genomes); (5) heldout src/heldout.py -> results/heldout_recurrence.tsv (253 indep. reps, 9/27 groups recur = L3; Bunyavirales termini expected). TODO: (3) per-species collapse (optional), lit check 5'U-rich, README rewrite, pi-review, token-report, push.
