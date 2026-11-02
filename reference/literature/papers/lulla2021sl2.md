@@ -31,3 +31,5 @@ Targeting the conserved stem-loop 2 motif (s2m) found in the genomes of many RNA
 ## Notes
 
 TODO
+
+Note 2026-11-02: s2m sequence verified against Rfam RF00164 seed (38/39 contain GAGGGTAC); see README.

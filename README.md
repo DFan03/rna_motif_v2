@@ -57,9 +57,9 @@ Top candidates after collapsing nested k-mers: `results/top_candidates.tsv`. Exa
 | real | last 300 | 8,182 | 1,124 | 238 | 72 |
 | chain null | whole / first / last | 0 / 38 / 79 | 0 | 0 | 0 |
 
-Cross-family recurrence is not produced by the background model alone. Most recurrent last-300 k-mers are AT-rich (TTTTAAA in 7 families; ATTTTAA, TTATTTT in 6), which could be real AU-rich 3'-UTR signal or the composition difference of terminal vs interior sequence (GC: whole 0.446, last 300 nt 0.432, so the global shift is small). Unresolved.
+Cross-family recurrence is not produced by the background model alone. Most recurrent last-300 k-mers are AT-rich (TTTTAAA in 7 families; ATTTTAA, TTATTTT in 6), which could be real AU-rich 3'-UTR signal or the composition difference of terminal vs interior sequence (GC: whole 0.446, last 300 nt 0.432, so the global shift is small). **Local-background re-test** (`src/local_bg.py`, order-1 background fitted on the 300-nt windows themselves): in the last 300 nt the AU-rich k-mers stay significant but weak (TTATTTT q=7e-4, ATTTTAA q=6e-3, TTTTAAA q=9e-3; log2 enrichment ~0.8, i.e. <2x), versus s2m k-mers at q~1e-23 and log2 ~4. At the 5' end they vanish (q>0.75, log2~0). So the AU-rich 3' signal is a modest, 3'-specific effect, not a strong motif; treat as low-priority candidate.
 
-**Recovered extended element (post hoc, `results/motif_3p_hits.tsv`)**: GAGGGTAC occurs within the last 300 nt of 26 representatives (Astroviridae 16, Coronaviridae 8, Caliciviridae 1, Bunyavirales 1), 85-200 nt from the genome end. Aligning 52-nt windows around the hit gives an identical stretch `CCGAGTAGGATCGAGGGTACAG` (>=70% consensus) across astro-, calici- and coronaviruses. This matches in position, taxa and sequence what I recall of the stem-loop II-like motif (s2m); PubMed confirms s2m is a conserved 3'-UTR element studied in coronaviruses and astroviruses [@keep2023s2m; @lulla2021sl2]. The abstracts do not state the sequence, so the sequence-level identification rests on my recollection and is **not yet verified** (check against the Rfam s2m alignment). It was identified after seeing the data, so it is a recovery example, not a pre-registered positive control. Importance: it shows the pipeline can surface an experimentally studied element, whereas most other candidates are unvalidated.
+**Recovered extended element (post hoc, `results/motif_3p_hits.tsv`)**: GAGGGTAC occurs within the last 300 nt of 26 representatives (Astroviridae 16, Coronaviridae 8, Caliciviridae 1, Bunyavirales 1), 85-200 nt from the genome end. Aligning 52-nt windows around the hit gives an identical stretch `CCGAGTAGGATCGAGGGTACAG` (>=70% consensus) across astro-, calici- and coronaviruses. This matches the stem-loop II-like motif (s2m), a conserved 3'-UTR element studied in coronaviruses and astroviruses [@keep2023s2m; @lulla2021sl2]. **Verified at sequence level against Rfam RF00164** (`reference/rfam/RF00164_seed.sto`, 39 seed sequences): 38/39 contain GAGGGTAC and 26/39 contain GATCGAGGGTACAG; the first seed sequences show the same `CCGAGTAGGATCGAGGGTACAG` core. It was identified after seeing the data, so it is a recovery example, not a pre-registered positive control. Importance: it shows the pipeline can surface an experimentally studied element, whereas most other candidates are unvalidated.
 
 **`stat-check` audit**
 
@@ -81,11 +81,11 @@ Cross-family recurrence is not produced by the background model alone. Most recu
 - **Candidate vs validated:** a validated element has experimental support (reporter/SHAPE/mutagenesis, conservation with covariation); our candidates are statistical over-representation relative to a composition model. They may reflect phylogeny, coding/codon constraints or structure, not function [@razumova2025utr s4.4].
 - The thousands of terminal-region hits are far above what a clean motif signal would give; the background is fitted on the whole genome, so any positional composition difference (UTR vs ORF start, poly-U tracts) counts as enrichment. Treat whole-genome hits as coding-confounded.
 - Clusters at ~85-90% identity: genus-level homology (60-85% identity) is not removed, so effective n is nearer the number of genera/families than 469. The recurring 3'-end family could be one clade's conserved sequence.
-- Not done: structure (RNAfold not installed), genus-level clustering, random sampling of records, local-background sensitivity.
+- Not done: structure (RNAfold not installed), genus-level clustering, random sampling of records.
 - Falsifier of the 3'-end family: absence in independent same-family genomes held out of discovery, or disappearance after genus-level clustering.
 
 ## Next steps
-1) verify s2m identity against Rfam alignment; 2) genus-level clustering; 3) separate AU-rich composition from motif with a local (window-fitted) background; 4) random instead of first-N sampling; 5) RNAfold structure of the s2m windows.
+1) genus-level clustering; 2) random instead of first-N sampling; 3) RNAfold structure of the s2m windows.
 
 ## Reproducibility
 ```
@@ -106,4 +106,5 @@ Seed 42; Python 3.12, numpy/scipy/pandas; total compute well under 5 min on 10 c
 
 - 2026-11-02: repo, papers, spec v1->v2 (Opus review), data, pipeline, gates, first results.
 - 2026-11-02: stat-check, family-level replication, 3'-end element consistent with s2m.
+- 2026-11-02: s2m verified vs Rfam RF00164; local-background test of AU-rich 3' k-mers (weak, <2x).
 </details>

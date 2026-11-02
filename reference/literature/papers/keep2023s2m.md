@@ -31,3 +31,5 @@ Reports s2m RNA structure deletion in avian coronavirus IBV and human astrovirus
 ## Notes
 
 TODO
+
+Note 2026-11-02: s2m sequence verified against Rfam RF00164 seed (38/39 contain GAGGGTAC); see README.
