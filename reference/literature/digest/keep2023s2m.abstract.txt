@@ -1,0 +1,61 @@
+1. J Virol. 2023 Mar 30;97(3):e0003823. doi: 10.1128/jvi.00038-23. Epub 2023 Feb 
+13.
+
+Deletion of the s2m RNA Structure in the Avian Coronavirus Infectious Bronchitis 
+Virus and Human Astrovirus Results in Sequence Insertions.
+
+Keep S(#)(1), Dowgier G(#)(2), Lulla V(3), Britton P(1), Oade M(3)(4), Freimanis 
+G(1), Tennakoon C(1), Jonassen CM(5), Tengs T(6), Bickerton E(1).
+
+Author information:
+(1)The Pirbright Institute, Woking, United Kingdom.
+(2)The Francis Crick Institute, London, United Kingdom.
+(3)Department of Pathology, University of Cambridge, Addenbrookes Hospital, 
+Cambridge, United Kingdom.
+(4)Lewis Thomas Laboratory, Department of Molecular Biology, Princeton 
+University, Princeton, New Jersey, USA.
+(5)Department of Virology, Norwegian Institute of Public Health, Oslo, Norway.
+(6)Department of Breeding and Genetics, Nofima, Ås, Norway.
+(#)Contributed equally
+
+Coronaviruses infect a wide variety of host species, resulting in a range of 
+diseases in both humans and animals. The coronavirus genome consists of a large 
+positive-sense single-stranded molecule of RNA containing many RNA structures. 
+One structure, denoted s2m and consisting of 41 nucleotides, is located within 
+the 3' untranslated region (3' UTR) and is shared between some coronavirus 
+species, including infectious bronchitis virus (IBV), severe acute respiratory 
+syndrome coronavirus (SARS-CoV), and SARS-CoV-2, as well as other pathogens, 
+including human astrovirus. Using a reverse genetic system to generate 
+recombinant viruses, we investigated the requirement of the s2m structure in the 
+replication of IBV, a globally distributed economically important 
+Gammacoronavirus that infects poultry causing respiratory disease. Deletion of 
+three nucleotides predicted to destabilize the canonical structure of the s2m or 
+the deletion of the nucleotides corresponding to s2m impacted viral replication 
+in vitro. In vitro passaging of the recombinant IBV with the s2m sequence 
+deleted resulted in a 36-nucleotide insertion in place of the deletion, which 
+was identified to be composed of a duplication of flanking sequences. A similar 
+result was observed following serial passage of human astrovirus with a deleted 
+s2m sequence. RNA modeling indicated that deletion of the nucleotides 
+corresponding to the s2m impacted other RNA structures present in the IBV 3' 
+UTR. Our results indicated for both IBV and human astrovirus a preference for 
+nucleotide occupation in the genome location corresponding to the s2m, which is 
+independent of the specific s2m sequence. IMPORTANCE Coronaviruses infect many 
+species, including humans and animals, with substantial effects on livestock, 
+particularly with respect to poultry. The coronavirus RNA genome consists of 
+structural elements involved in viral replication whose roles are poorly 
+understood. We investigated the requirement of the RNA structural element s2m in 
+the replication of the Gammacoronavirus infectious bronchitis virus, an 
+economically important viral pathogen of poultry. Using reverse genetics to 
+generate recombinant IBVs with either a disrupted or deleted s2m, we showed that 
+the s2m is not required for viral replication in cell culture; however, 
+replication is decreased in tracheal tissue, suggesting a role for the s2m in 
+the natural host. Passaging of these viruses as well as human astrovirus lacking 
+the s2m sequence demonstrated a preference for nucleotide occupation, 
+independent of the s2m sequence. RNA modeling suggested deletion of the s2m may 
+negatively impact other essential RNA structures.
+
+DOI: 10.1128/jvi.00038-23
+PMCID: PMC10062133
+PMID: 36779761 [Indexed for MEDLINE]
+
+Conflict of interest statement: The authors declare no conflict of interest.

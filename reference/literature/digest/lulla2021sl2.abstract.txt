@@ -1,0 +1,49 @@
+1. J Virol. 2021 Jun 24;95(14):e0066321. doi: 10.1128/JVI.00663-21. Epub 2021 Jun
+ 24.
+
+Targeting the Conserved Stem Loop 2 Motif in the SARS-CoV-2 Genome.
+
+Lulla V(#)(1), Wandel MP(#)(2), Bandyra KJ(#)(3), Ulferts R(#)(4), Wu M(#)(4), 
+Dendooven T(#)(3), Yang X(#)(5), Doyle N(6), Oerum S(7), Beale R(4), O'Rourke 
+SM(8), Randow F(2), Maier HJ(6), Scott W(8), Ding Y(5), Firth AE(1), Bloznelyte 
+K(3), Luisi BF(3).
+
+Author information:
+(1)Department of Pathology, Division of Virology, University of Cambridge, 
+Cambridge, United Kingdom.
+(2)MRC Laboratory of Molecular Biology, Cambridge, United Kingdom.
+(3)Department of Biochemistry, University of Cambridge, Cambridge, United 
+Kingdom.
+(4)The Francis Crick Institute, London, United Kingdom.
+(5)Department of Cell and Developmental Biology, John Innes Centre, Norwich 
+Research Park, Norwich, United Kingdom.
+(6)Pirbright Institute, Pirbright, Woking, United Kingdom.
+(7)CNRS-Université Paris Diderot, Institut de Biologie Physico-Chimique, Paris, 
+France.
+(8)University of California at Santa Cruz, Santa Cruz, California, USA.
+(#)Contributed equally
+
+RNA structural elements occur in numerous single-stranded positive-sense RNA 
+viruses. The stem-loop 2 motif (s2m) is one such element with an unusually high 
+degree of sequence conservation, being found in the 3' untranslated region (UTR) 
+in the genomes of many astroviruses, some picornaviruses and noroviruses, and a 
+variety of coronaviruses, including severe acute respiratory syndrome 
+coronavirus (SARS-CoV) and SARS-CoV-2. The evolutionary conservation and its 
+occurrence in all viral subgenomic transcripts imply a key role for s2m in the 
+viral infection cycle. Our findings indicate that the element, while stably 
+folded, can nonetheless be invaded and remodeled spontaneously by antisense 
+oligonucleotides (ASOs) that initiate pairing in exposed loops and trigger 
+efficient sequence-specific RNA cleavage in reporter assays. ASOs also act to 
+inhibit replication in an astrovirus replicon model system in a 
+sequence-specific, dose-dependent manner and inhibit SARS-CoV-2 replication in 
+cell culture. Our results thus permit us to suggest that the s2m element is 
+readily targeted by ASOs, which show promise as antiviral agents. IMPORTANCE The 
+highly conserved stem-loop 2 motif (s2m) is found in the genomes of many RNA 
+viruses, including SARS-CoV-2. Our findings indicate that the s2m element can be 
+targeted by antisense oligonucleotides. The antiviral potential of this element 
+represents a promising start for further research into targeting conserved 
+elements in RNA viruses.
+
+DOI: 10.1128/JVI.00663-21
+PMCID: PMC8223950
+PMID: 33963053 [Indexed for MEDLINE]

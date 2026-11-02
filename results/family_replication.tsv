@@ -1,0 +1,7 @@
+data	region	kmers_sig_in_>=1_family	>=2	>=3	>=4
+real	whole	2966	142	20	3
+real	5p300	6907	538	59	6
+real	3p300	8182	1124	238	72
+chain_null	whole	0	0	0	0
+chain_null	5p300	38	0	0	0
+chain_null	3p300	79	0	0	0

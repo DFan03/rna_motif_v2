@@ -1,6 +1,6 @@
 # Viral RNA regulatory-motif discovery (rna_motif_v2)
 
-**Status (2026-11-02, preliminary, `stat-check` not yet run): pipeline built and calibrated on 469 RefSeq RNA-virus genomes (12 families). It passes its three gates, and ranks candidate k-mers that are statistical candidates only. A recurring 3'-end motif family (ATCGAGGGTACAG-like, 3-4 families) is the first thing to follow up.**
+**Status (2026-11-02, preliminary): pipeline passes its calibration gates and, post hoc, recovers a conserved ~22-nt 3'-UTR element (CCGAGTAGGATCGAGGGTACAG; 25 genomes, astro-, corona-, caliciviruses) that is consistent with the published s2m element. Family-level replication shows real cross-family signal (chain nulls give none); `stat-check` done, 4 open caveats below.**
 
 ## Abstract
 Question: which short RNA sequence patterns (k=6-8) are over-represented in viral RNA beyond what each genome's own order-2 composition predicts, counting independent sequence clusters rather than records? Approach: NCBI RefSeq pull + QC, similarity clustering, per-sequence Markov-2 background with exact Poisson-binomial tails, BH-FDR within region (whole genome / first 300 nt / last 300 nt). Result: calibration gates pass (1/20 null datasets with any BH hit; planted 8-mer recovered at rank 1, q~1e-134); naive record counting inflates hits 9.6x on a redundant set. On real data 76 whole-genome and ~740-880 terminal-region k-mers are significant, log2 enrichment >=1 and robust to an order-1 background. These are candidates, not functional elements; coding constraint and genus-level homology are not removed (see limitations).
@@ -13,8 +13,9 @@ Question: which short RNA sequence patterns (k=6-8) are over-represented in vira
 - [x] 4. Task 2 motif engine: `src/motif.py` (12 tests pass), run in 6 s on 10 cores
 - [x] 5. Gates G1-G3 (`src/gates.py`, `results/gates.json`)
 - [x] 6. Real-data analysis (`src/analyze.py`)
-- [ ] 7. `stat-check` audit, leave-one-family-out, genus-level clustering sensitivity
-- [ ] 8. Follow-up of the recurring 3'-end motif family
+- [x] 7. `stat-check` audit + family-level replication (`src/robustness.py`)
+- [x] 8. Follow-up of the recurring 3'-end motif: extended element, consistent with s2m (literature check below)
+- [ ] 9. Remaining: sequence-level check against an s2m reference alignment (Rfam), genus-level clustering, structure (RNAfold absent)
 
 ## Data
 469 RefSeq records after QC (12 families, 1000-35,000 nt) + 96 GenBank strains (SARS-CoV-2, Dengue 2, HCV; redundancy demo only). 55 of 620 fetched records dropped (all: >1% non-ACGT). Clustering: RefSeq collapses little (about 1 cluster per record, largest 5), demo collapses strongly (21 -> 1, 75 -> 15 clusters). Only cluster representatives are counted [@bernett2024leakage Q4].
@@ -47,17 +48,44 @@ Top candidates after collapsing nested k-mers: `results/top_candidates.tsv`. Exa
 
 **Known elements, descriptive (`results/known_elements.tsv`, first 300 nt vs 20 chain-sampled nulls)**: PRTE-like pyrimidine pattern modestly higher (37% vs 30%, z=2.8); TOP, canonical rG4, Kozak not enriched; ATG slightly depleted (z=-2.5). Not recovering host-mRNA elements in viral genomes is uninformative [@razumova2025utr].
 
+**Family-level replication (`results/family_replication.tsv`)**: discovery rerun separately inside each family (n=26-40 each; BH within family and region; log2 enrichment >=1); count of families in which a k-mer is significant.
+
+| data | region | sig in >=1 family | >=2 | >=3 | >=4 |
+|---|---|---|---|---|---|
+| real | whole | 2,966 | 142 | 20 | 3 |
+| real | first 300 | 6,907 | 538 | 59 | 6 |
+| real | last 300 | 8,182 | 1,124 | 238 | 72 |
+| chain null | whole / first / last | 0 / 38 / 79 | 0 | 0 | 0 |
+
+Cross-family recurrence is not produced by the background model alone. Most recurrent last-300 k-mers are AT-rich (TTTTAAA in 7 families; ATTTTAA, TTATTTT in 6), which could be real AU-rich 3'-UTR signal or the composition difference of terminal vs interior sequence (GC: whole 0.446, last 300 nt 0.432, so the global shift is small). Unresolved.
+
+**Recovered extended element (post hoc, `results/motif_3p_hits.tsv`)**: GAGGGTAC occurs within the last 300 nt of 26 representatives (Astroviridae 16, Coronaviridae 8, Caliciviridae 1, Bunyavirales 1), 85-200 nt from the genome end. Aligning 52-nt windows around the hit gives an identical stretch `CCGAGTAGGATCGAGGGTACAG` (>=70% consensus) across astro-, calici- and coronaviruses. This matches in position, taxa and sequence what I recall of the stem-loop II-like motif (s2m); PubMed confirms s2m is a conserved 3'-UTR element studied in coronaviruses and astroviruses [@keep2023s2m; @lulla2021sl2]. The abstracts do not state the sequence, so the sequence-level identification rests on my recollection and is **not yet verified** (check against the Rfam s2m alignment). It was identified after seeing the data, so it is a recovery example, not a pre-registered positive control. Importance: it shows the pipeline can surface an experimentally studied element, whereas most other candidates are unvalidated.
+
+**`stat-check` audit**
+
+| Check | Status | Evidence |
+|---|---|---|
+| Independent units / redundancy [@bernett2024leakage Q4] | follows, partly | cluster representatives; G2 shows 9.6x inflation otherwise. Deviation: clusters only at ~85-90% identity, so effective n < 469 |
+| No joint preprocessing across compared sets | follows | background fitted per sequence, no global fitting |
+| Multiple testing (general principle #3) | follows | BH within region, n_tests reported; nested/overlapping tests dependent (limitation) |
+| Seeds / versions (principle #4) | follows | seed 42; in `run_meta.json`, not in tsv columns (validator warning) |
+| Baselines (principle #5) | follows | order-1 sensitivity, naive-vs-cluster, chain null |
+| Raw data read-only (principle #6) | follows | `data/raw` untouched; derived files separate |
+| Calibration on real data | deviates | ~20% of all tests have p<0.1; real genomes depart strongly from Markov-2 (coding, structure), so q-values are not literal error rates; cross-family replication is the safeguard |
+| Sampling | deviates | RefSeq records taken in esearch order (first 40 per family), not random: selection bias possible |
+| Thresholds (log2>=1, obs>=3, cluster J>=0.10) | no standard covers | project defaults, flagged for user decision |
+
 ![redundancy](figures/g2_redundancy.png)
 
 ## Discussion and limitations
 - **Candidate vs validated:** a validated element has experimental support (reporter/SHAPE/mutagenesis, conservation with covariation); our candidates are statistical over-representation relative to a composition model. They may reflect phylogeny, coding/codon constraints or structure, not function [@razumova2025utr s4.4].
 - The thousands of terminal-region hits are far above what a clean motif signal would give; the background is fitted on the whole genome, so any positional composition difference (UTR vs ORF start, poly-U tracts) counts as enrichment. Treat whole-genome hits as coding-confounded.
 - Clusters at ~85-90% identity: genus-level homology (60-85% identity) is not removed, so effective n is nearer the number of genera/families than 469. The recurring 3'-end family could be one clade's conserved sequence.
-- Not done: leave-one-family-out, structure (RNAfold not installed), Markov-2 vs real-genome fit check, `stat-check`.
+- Not done: structure (RNAfold not installed), genus-level clustering, random sampling of records, local-background sensitivity.
 - Falsifier of the 3'-end family: absence in independent same-family genomes held out of discovery, or disappearance after genus-level clustering.
 
 ## Next steps
-1) `stat-check`; 2) genus-level clustering + leave-one-family-out; 3) inspect where the 3'-end family sits (UTR vs ORF) and in which taxa.
+1) verify s2m identity against Rfam alignment; 2) genus-level clustering; 3) separate AU-rich composition from motif with a local (window-fitted) background; 4) random instead of first-N sampling; 5) RNAfold structure of the s2m windows.
 
 ## Reproducibility
 ```
@@ -66,14 +94,16 @@ python3 src/cluster.py --qc data/qc
 python3 src/run_pipeline.py --out results                         # 6 s
 python3 src/gates.py --out results --n-null 20                    # 110 s
 python3 src/analyze.py                                            # 10 s
+python3 src/robustness.py                                         # ~1 min
 pytest tests/
 ```
 Seed 42; Python 3.12, numpy/scipy/pandas; total compute well under 5 min on 10 cores.
 
 ## References
-`reference/literature/library.bib`: [@bernett2024leakage], [@razumova2025utr], [@jin2025mrna].
+`reference/literature/library.bib`: [@bernett2024leakage], [@razumova2025utr], [@jin2025mrna], [@keep2023s2m], [@lulla2021sl2].
 
 <details><summary>Changelog</summary>
 
 - 2026-11-02: repo, papers, spec v1->v2 (Opus review), data, pipeline, gates, first results.
+- 2026-11-02: stat-check, family-level replication, 3'-end element consistent with s2m.
 </details>
