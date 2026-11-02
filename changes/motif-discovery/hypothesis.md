@@ -1,8 +1,8 @@
 # Hypothesis: motif-discovery
 **One line:** some k-mers (k=4..8) are over-represented in viral RNA beyond what dinucleotide composition and phylogenetic redundancy explain, in >=2 virus families; they are CANDIDATES only.
-- H0: observed cluster-level coverage of each k-mer is explained by dinucleotide-shuffled null (Altschul-Erickson, n=100 per seq).
-- H1: coverage exceeds the null at BH-FDR q<0.05, effect size log2(obs/null mean)>=1, in >=3 independent clusters spanning >=2 families.
+- H0: observed cluster-representative coverage of each k-mer (k=6,7,8) is explained by a per-sequence order-2 Markov background (closed-form expectation; exact Poisson-binomial tail).
+- H1: coverage exceeds the null at BH-FDR q<0.05 (within region), log2 enrichment>=1, observed in >=3 representatives; 'replicated' = nominal p<0.05 within >=2 families separately (descriptive; effective n ~ families, not records).
 - Unit of replication: sequence cluster (not record) [bernett2024leakage Q4].
 - Deciding metrics: q-value, log2 enrichment, n_clusters, n_families, 5'/3' terminal enrichment.
-- Falsifiers / gates: (G1) shuffled-genome calibration gives <=5% hits at q<0.05; (G2) naive record-level counting inflates hits vs cluster-level on the redundant demo set (shows the bias); (G3) known elements (TOP, PRTE, rG4, Kozak) are reported as recovered / not recovered, honestly.
-- Candidate != validated: no functional labels; no claim of function without experiment (SHAPE, reporter, conservation + mutation) [razumova2025utr s4.4].
+- Gates (revised after Opus review, handoff/T5.raw.md): (G1) calibration: 20 null datasets sampled from fitted order-2 chains (different generator than the test), full pipeline; BH discoveries in <=1/20 runs and p-values ~uniform (KS p>0.01). Also report Markov-1-vs-2 misspecification rate honestly. (G2) naive record-level counting inflates hits vs cluster-representative counting on the redundant demo set. (G3) planted 8-mer spiked into 20% of real representatives (5' 300 nt) is recovered; known elements (TOP, PRTE, rG4, Kozak) reported descriptively only (host-mRNA elements, non-recovery uninformative).
+- Candidate != validated: enrichment may reflect phylogeny, coding/codon constraints or structure, not function; no functional claim without experiment [razumova2025utr s4.4].
